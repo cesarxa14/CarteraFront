@@ -1,0 +1,24 @@
+<div >
+    <form [formGroup]="registerForm" class="formulario "> 
+        <mat-form-field appearance="fill">
+            <mat-label>Nombres y Apellidos</mat-label>
+            <input matInput placeholder="Ingresa tu nombre de usuario" formControlName="nombres">
+        </mat-form-field>
+
+
+        <mat-form-field appearance="fill">
+            <mat-label>Usuario</mat-label>
+            <input matInput placeholder="Ingresa tu nombre de usuario" formControlName="username">
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <mat-label>Contraseña</mat-label>
+            <input type="password" matInput placeholder="Ingresa tu contraseña" formControlName="password">
+        </mat-form-field>
+
+        <button (click)="register()" class="button-login" mat-raised-button color="primary" [disabled]="!registerForm.valid">
+            REGISTRARSE
+        </button>
+    </form>
+
+</div>

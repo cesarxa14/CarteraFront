@@ -1,0 +1,29 @@
+.all{
+  
+}
+.contenedor{
+  /* border: 2px solid red; */
+  margin-left: 3%;
+  margin-right: 3%;
+  display: grid;
+  grid-template-columns: 50% 50%;
+  margin-top: 150px;
+  column-gap: 50px;
+}
+
+
+.formsAuth{
+  /* width: 100%; */
+  background-image: url('../../../assets/images/background-white.jpg');
+
+}
+
+.imagen-inicio{
+  
+  border-radius: 10%;
+  width: 450px;
+  height: 320px;
+  background-image: url('../../../assets/images/imagen-inicio.jpeg');
+  background-size: cover;
+}
+

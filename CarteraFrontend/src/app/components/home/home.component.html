@@ -1,0 +1,29 @@
+<app-header></app-header>
+
+<div class="contenedor">
+    <div class="header-home">
+        <h1>Bienvenido {{USER_NAME}}</h1>
+    </div>
+    <div class="carteras-contenedor">
+        <div class="subtitulo">
+            <div>
+                <h1>Mis Carteras</h1>
+            </div>
+            <div>
+                <button mat-raised-button color="primary"> Nueva Cartera</button>
+            </div>
+        </div>
+        <div class="contenedor-cards">
+            <mat-card class="example-card" *ngFor="let cartera of carteras; let i = index;" (click)="goToCard(i+1)">
+                <mat-card-header>
+                  <mat-card-title>{{cartera.nombre}}</mat-card-title>
+                </mat-card-header>
+                <img mat-card-image src="../../../assets/images/cartera2.png" alt="Photo of a Shiba Inu">
+            </mat-card>
+
+        </div>
+        
+
+    </div>
+
+</div>

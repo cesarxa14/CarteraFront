@@ -1,0 +1,18 @@
+<div class="container cabecera">
+  <mat-toolbar color="primary">
+      <mat-toolbar-row>
+          <!-- <img class="logo" src="../../../assets/img/avatar.png" alt=""> -->
+        <span class="app-name">ADMINISTRADOR DE CARTERAS</span>
+        <div routerLinkActive="active" *ngIf="metadata" class="routes">
+          <a mat-button  [routerLink]="'/home'">Home</a>
+          <!-- <a mat-button  [routerLink]="'/customer'">Customers</a> -->
+          
+        </div>
+        <span class="flex-expand"></span>
+        <div *ngIf="metadata">
+          <button mat-button (click)="logout()">LogOut <span class="material-icons"> logout </span></button>
+        </div>
+      </mat-toolbar-row>
+    </mat-toolbar>
+</div>
+

@@ -1,0 +1,72 @@
+<app-header></app-header>
+
+<div class="cartera-contenedor">
+    <button style="margin-left: 40px;margin-bottom: 40px;"  (click)="backClicked()" mat-button color="primary">
+        <span class="material-icons button-back">
+            arrow_back
+        </span>
+    </button>
+    <mat-card class="subtitulo">
+        <div *ngIf="cartera">
+            <h1>{{cartera.nombre}}</h1>
+        </div>
+        <div>
+            <button (click)="addLetra()" mat-raised-button color="primary"> Agregar Letra</button>
+        </div>
+      </mat-card>
+    <div class="contenedor-cards">
+        <div class="tabla-citas">
+            <table  mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+    
+                <ng-container matColumnDef="nombre">
+                  <th mat-header-cell *matHeaderCellDef>Nombre Letra</th>
+                  <td mat-cell *matCellDef="let element"> <p class="ellipsis"><b> Letra 00{{element.id}}</b> </p> </td>
+                </ng-container>
+              
+                <ng-container matColumnDef="val_nominal">
+                  <th mat-header-cell *matHeaderCellDef>Valor Nominal</th>
+                  <td mat-cell *matCellDef="let element" [matTooltip]="element.titulo"> <p class="ellipsis"> <b >{{element.valorNominal}}</b></p></td>
+                </ng-container>
+              
+                <ng-container matColumnDef="f_emision">
+                  <th mat-header-cell *matHeaderCellDef>Fecha Emision</th>
+                  <td mat-cell *matCellDef="let element"> <p class="ellipsis"><b> {{element.fechaEmision}}</b> </p>  </td>
+                </ng-container>
+              
+                <ng-container matColumnDef="f_vencimiento">
+                  <th mat-header-cell *matHeaderCellDef>Fecha Vencimiento</th>
+                  <td mat-cell *matCellDef="let element"> <p> <b> {{element.fechaVencimiento}}</b> </p>  </td>
+                </ng-container>
+        
+                <ng-container matColumnDef="reten">
+                    <th mat-header-cell *matHeaderCellDef> Retencion </th>
+                    <td mat-cell *matCellDef="let element"> 
+                        <p class="ellipsis"><b>{{element.retencion}}</b></p>
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="tcea">
+                  <th mat-header-cell *matHeaderCellDef> TCEA </th>
+                  <td mat-cell *matCellDef="let element"> 
+                      <p class="ellipsis"><b>{{element.tcea}}</b></p>
+                  </td>
+                </ng-container>
+        
+                <ng-container matColumnDef="detalles">
+                <th mat-header-cell *matHeaderCellDef> Detalles </th>
+                <td mat-cell *matCellDef="let element; let i = index;">
+                  <button (click)="verDetalles(element)" mat-button color=primary >
+                    <span class="material-icons"> info </span>
+                  </button>
+                </td>
+                </ng-container>
+              
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+              </table>  
+        </div>
+
+    </div>
+    
+
+</div>
