@@ -38,4 +38,8 @@ export class GeneralService {
     return this.http.post(`${this.baseLetraURL}?id_cartera=${idCartera}`, obj);
   }
 
+  getUserByUsername(username){
+    return this.http.get(`${this.baseUserURL}?username=${username}`);
+  }
+
 }

@@ -29,6 +29,18 @@
       "username": "argar",
       "password": "987654321",
       "id": 5
+    },
+    {
+      "nombres": "fdfdfds",
+      "username": "cesar56",
+      "password": "4323243",
+      "id": 6
+    },
+    {
+      "nombres": "Arvin Kael",
+      "username": "arvin",
+      "password": "123456",
+      "id": 7
     }
   ],
   "carteras": [
@@ -167,6 +179,42 @@
       "CFExpresadoEn": "6565",
       "idCartera": 3,
       "id": 10
+    },
+    {
+      "fechaEmision": "2021-06-22T07:39:48.697Z",
+      "fechaVencimiento": "2021-06-24T05:00:00.000Z",
+      "valorNominal": "543543",
+      "retencion": "54343",
+      "CIMotivo": "fdsfds",
+      "CIExpresadoEn": "543543",
+      "CFMotivo": "877",
+      "CFExpresadoEn": "877",
+      "idCartera": 2,
+      "id": 11
+    },
+    {
+      "fechaEmision": "2021-06-22T07:41:44.591Z",
+      "fechaVencimiento": "2021-06-24T05:00:00.000Z",
+      "valorNominal": "dsdsa",
+      "retencion": "dsds",
+      "CIMotivo": "dsds",
+      "CIExpresadoEn": "dsds",
+      "CFMotivo": "dsds",
+      "CFExpresadoEn": "dsds",
+      "idCartera": 2,
+      "id": 12
+    },
+    {
+      "fechaEmision": "2021-06-22T07:51:44.313Z",
+      "fechaVencimiento": "2021-06-23T05:00:00.000Z",
+      "valorNominal": "vcxvcx",
+      "retencion": "vcvcx",
+      "CIMotivo": "vcxvc",
+      "CIExpresadoEn": "vcxvcx",
+      "CFMotivo": "vcvcx",
+      "CFExpresadoEn": "vcvcx",
+      "idCartera": 3,
+      "id": 13
     }
   ]
 }

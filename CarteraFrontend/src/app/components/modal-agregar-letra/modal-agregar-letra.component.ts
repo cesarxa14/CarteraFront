@@ -29,15 +29,16 @@ export class ModalAgregarLetraComponent implements OnInit {
 
   _builderForm(){
     let pattern = '^[a-zA-Z0-9._@\-]*$';
+    let numberPattern = /^\d{1,10}$/;
     let form = this._formBuilder.group({
       fechaEmision: [this.TODAY_DATE, [Validators.required,this.dateValidator]],
       fechaVencimiento: [null, [Validators.required,this.dateValidator]],
-      valorNominal: [null, [Validators.required]],
-      retencion: [null,[Validators.required]],
+      valorNominal: [null, [Validators.required, Validators.pattern(numberPattern)]],
+      retencion: [null,[Validators.required, Validators.pattern(numberPattern)]],
       CIMotivo: [null],
-      CIExpresadoEn: [null],
+      CIExpresadoEn: [null,[Validators.pattern(numberPattern)]],
       CFMotivo: [null],
-      CFExpresadoEn: [null,],
+      CFExpresadoEn: [null,[Validators.pattern(numberPattern)]],
       // cosIniciales: this._formBuilder.array([])
     }) 
 
@@ -63,6 +64,7 @@ export class ModalAgregarLetraComponent implements OnInit {
   }
 
   addLetra(){
+    // this.retencion.hasError('pattern')
     console.log(this.newLetraForm.value)
     let obj = {
       fechaEmision: this.fechaEmision.value,

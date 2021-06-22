@@ -6,8 +6,8 @@
             arrow_back
         </span>
     </button>
-    <mat-card class="subtitulo">
-        <div *ngIf="cartera">
+    <mat-card class="subtitulo" *ngIf="cartera">
+        <div >
             <h1>{{cartera.nombre}}</h1>
         </div>
         <div>
@@ -43,13 +43,6 @@
                     <td mat-cell *matCellDef="let element"> 
                         <p class="ellipsis"><b>{{element.retencion}}</b></p>
                     </td>
-                </ng-container>
-
-                <ng-container matColumnDef="tcea">
-                  <th mat-header-cell *matHeaderCellDef> TCEA </th>
-                  <td mat-cell *matCellDef="let element"> 
-                      <p class="ellipsis"><b>{{element.tcea}}</b></p>
-                  </td>
                 </ng-container>
         
                 <ng-container matColumnDef="detalles">

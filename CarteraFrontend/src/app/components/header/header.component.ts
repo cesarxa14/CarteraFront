@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
 })
 export class HeaderComponent implements OnInit {
 
-  metadata: any = localStorage.getItem('metadata');
+  metadata: any = JSON.parse(localStorage.getItem('metadata'));
   constructor(private router: Router) { }
 
   ngOnInit() {

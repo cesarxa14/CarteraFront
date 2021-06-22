@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { Router} from '@angular/router';
 import { GeneralService } from '../../service/general.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
+
+
 
 @Component({
   selector: 'app-login',
@@ -13,7 +16,8 @@ export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   constructor(private _formBuilder : FormBuilder,
               private  router: Router,
-              private generalService: GeneralService) { }
+              private generalService: GeneralService,
+              private _snackBar: MatSnackBar) { }
 
   ngOnInit() {
     this.loginForm = this._builderForm();
@@ -42,6 +46,13 @@ export class LoginComponent implements OnInit {
       if(res.length>0){
         this.router.navigateByUrl('/home')
         localStorage.setItem('metadata', JSON.stringify(res));
+      } else{
+        this._snackBar.open('Usuario y/o contraseña incorrecta', 'Cerrar', {
+          duration:4000, 
+          horizontalPosition: 'start',
+          panelClass: ['my-snack-bar']  
+        });
+        
       }
       console.log(res) 
     })

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { Router} from '@angular/router';
 import { GeneralService } from '../../service/general.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-register',
@@ -13,7 +14,8 @@ export class RegisterComponent implements OnInit {
   registerForm: FormGroup;
   constructor(private _formBuilder : FormBuilder,
               private  router: Router,
-              private generalService: GeneralService) { }
+              private generalService: GeneralService,
+              private _snackBar: MatSnackBar) { }
 
   ngOnInit() {
     this.registerForm = this._builderForm();
@@ -39,14 +41,26 @@ export class RegisterComponent implements OnInit {
   register(){
     console.log(this.registerForm.value)
     
-    this.generalService.register(this.registerForm.value).subscribe((res:any)=>{
-      console.log(res);
-      if(res) {
-        localStorage.setItem('metadata', JSON.stringify([res]));
-        this.router.navigateByUrl('/home')
+    this.generalService.getUserByUsername(this.username.value).subscribe((user:any)=>{
+      console.log('user', user)
+      if(user.length > 0){
+        this._snackBar.open('Este nombre de usuario ya existe', 'Cerrar', {
+          duration:4000, 
+          horizontalPosition: 'start',
+          panelClass: ['my-snack-bar']  
+        });
+      } else{
+        this.generalService.register(this.registerForm.value).subscribe((res:any)=>{
+          console.log(res);
+          if(res) {
+            localStorage.setItem('metadata', JSON.stringify([res]));
+            this.router.navigateByUrl('/home')
+          }
+          
+        })
       }
-      
     })
+   
     
   }
 
