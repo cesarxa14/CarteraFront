@@ -21,8 +21,8 @@
 .imagen-inicio{
   
   border-radius: 10%;
-  width: 450px;
-  height: 320px;
+  max-width: 450px;
+  max-height: 320px;
   background-image: url('../../../assets/images/imagen-inicio.jpeg');
   background-size: cover;
 }
