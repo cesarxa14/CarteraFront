@@ -24,7 +24,6 @@ export class ModalAgregarLetraComponent implements OnInit {
   ngOnInit() {
     this.newLetraForm = this._builderForm();
     this.idCartera = parseInt(this.data.idCartera)
-    // console.log(this.idCartera)
   }
 
   _builderForm(){
@@ -65,7 +64,7 @@ export class ModalAgregarLetraComponent implements OnInit {
 
   addLetra(){
     // this.retencion.hasError('pattern')
-    console.log(this.newLetraForm.value)
+
     let obj = {
       fechaEmision: this.fechaEmision.value,
       fechaVencimiento: this.fechaVencimiento.value,
