@@ -155,6 +155,18 @@
       "CFExpresadoEn": "80",
       "idCartera": 1,
       "id": 9
+    },
+    {
+      "fechaEmision": "2021-06-22T06:10:54.253Z",
+      "fechaVencimiento": "2021-06-23T05:00:00.000Z",
+      "valorNominal": "20",
+      "retencion": "54",
+      "CIMotivo": "gf",
+      "CIExpresadoEn": "6546546545",
+      "CFMotivo": "6565",
+      "CFExpresadoEn": "6565",
+      "idCartera": 3,
+      "id": 10
     }
   ]
 }
