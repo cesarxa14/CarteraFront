@@ -2371,7 +2371,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     "./node_modules/@angular/material/esm2015/dialog.js");
 
     var ModalAgregarLetraComponent = /*#__PURE__*/function () {
-      function ModalAgregarLetraComponent(_formBuilder, generalService, data, dialogRef) {
+      function ModalAgregarLetraComponent(_formBuilder, generalService, // @Inject(MAT_DIALOG_DATA) public data: any,
+      data, dialogRef) {
         _classCallCheck(this, ModalAgregarLetraComponent);
 
         this._formBuilder = _formBuilder;

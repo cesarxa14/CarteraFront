@@ -1382,7 +1382,9 @@ __webpack_require__.r(__webpack_exports__);
 
 
 let ModalAgregarLetraComponent = class ModalAgregarLetraComponent {
-    constructor(_formBuilder, generalService, data, dialogRef) {
+    constructor(_formBuilder, generalService, 
+    // @Inject(MAT_DIALOG_DATA) public data: any,
+    data, dialogRef) {
         this._formBuilder = _formBuilder;
         this.generalService = generalService;
         this.data = data;
