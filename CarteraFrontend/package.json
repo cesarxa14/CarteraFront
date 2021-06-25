@@ -9,7 +9,7 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "backend": "json-server --watch ./src/app/db.json",
-    "deploy": "ng build --prod --base-href https://cesarxa14.github.io/CarteraFront/ && angular-cli-ghpages --branch master"
+    "deploy": "ng build --prod --base-href https://cesarxa14.github.io/CarteraFront/ && angular-cli-ghpages --branch gh-pages"
   },
   "private": true,
   "dependencies": {
