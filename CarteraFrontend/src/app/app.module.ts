@@ -43,7 +43,7 @@ import { ModalAgregarCarteraComponent } from './components/modal-agregar-cartera
     HttpClientModule
   ],
   providers: [],
-  entryComponents: [ModalAgregarLetraComponent],
+  entryComponents: [ModalAgregarLetraComponent, ModalAgregarCarteraComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

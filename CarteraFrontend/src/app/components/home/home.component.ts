@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { GeneralService } from '../../service/general.service';
+import { MatDialog } from '@angular/material/dialog';
+import { ModalAgregarCarteraComponent } from '../modal-agregar-cartera/modal-agregar-cartera.component';
 
 @Component({
   selector: 'app-home',
@@ -10,14 +12,17 @@ import { GeneralService } from '../../service/general.service';
 export class HomeComponent implements OnInit {
 
   USER_NAME: string;
+  USER_ID: number;
   carteras: any[];
   metadata:any = JSON.parse(localStorage.getItem('metadata'))
   items = ['tretr','543543','543','4','fdfd', 'fdfds']
   constructor(private router: Router,
-              private generalService: GeneralService) { }
+              private generalService: GeneralService,
+              public dialog: MatDialog) { }
 
   ngOnInit() {
     this.USER_NAME = this.metadata[0].nombres; 
+    this.USER_ID = this.metadata[0].id; 
 
     this.generalService.getCarterasByUser(this.metadata[0].id).subscribe((res:any)=>{
       console.log(res);
@@ -29,6 +34,14 @@ export class HomeComponent implements OnInit {
   goToCard(i){
     console.log(i);
     this.router.navigateByUrl(`/cartera/${i}`)
+  }
+
+  abrirModalNuevaCartera(){
+    const dialogRef = this.dialog.open(ModalAgregarCarteraComponent, {
+      width: '900px',
+      height: '650px',
+      data: {idUser: this.USER_ID}
+    })
   }
 
 }

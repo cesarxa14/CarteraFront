@@ -1,0 +1,220 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "nombres": "Cesar Torres",
+      "username": "cesar",
+      "password": "123456"
+    },
+    {
+      "nombres": "MaricieloTorres",
+      "username": "mary",
+      "password": "12345678",
+      "id": 2
+    },
+    {
+      "nombres": "MaricieloTorres",
+      "username": "mary",
+      "password": "12345678",
+      "id": 3
+    },
+    {
+      "nombres": "cetolara",
+      "username": "ce",
+      "password": "123455",
+      "id": 4
+    },
+    {
+      "nombres": "ArvinGarcia",
+      "username": "argar",
+      "password": "987654321",
+      "id": 5
+    },
+    {
+      "nombres": "fdfdfds",
+      "username": "cesar56",
+      "password": "4323243",
+      "id": 6
+    },
+    {
+      "nombres": "Arvin Kael",
+      "username": "arvin",
+      "password": "123456",
+      "id": 7
+    }
+  ],
+  "carteras": [
+    {
+      "id": 1,
+      "nombre": "Cartera 1",
+      "id_user": 1
+    },
+    {
+      "id": 2,
+      "nombre": "Cartera 2",
+      "id_user": 1
+    },
+    {
+      "id": 3,
+      "nombre": "Cartera 3",
+      "id_user": 1
+    }
+  ],
+  "letras": [
+    {
+      "id": 1,
+      "fecha_emision": "14/11/1998",
+      "fecha_vencimiento": "14/11/1999",
+      "valor_nominal": 1000,
+      "retencion": 50,
+      "CIMotivo": "Portes",
+      "CIExpresadoEn": 500,
+      "CFMotivo": "Portes2",
+      "CFExpresadoEn": 900,
+      "idCartera": 1
+    },
+    {
+      "fechaEmision": "2021-06-21T22:14:05.623Z",
+      "fechaVencimiento": "2021-06-23T05:00:00.000Z",
+      "valorNominal": "2000",
+      "retencion": "30",
+      "CIMotivo": "Hola",
+      "CIExpresadoEn": "566",
+      "CFMotivo": "Chau",
+      "CFExpresadoEn": "123",
+      "id": 2
+    },
+    {
+      "fechaEmision": "2021-06-21T23:35:03.053Z",
+      "fechaVencimiento": "2021-06-30T05:00:00.000Z",
+      "valorNominal": "600",
+      "retencion": "500",
+      "CIMotivo": "DSAdsa",
+      "CIExpresadoEn": "432432",
+      "CFMotivo": "87",
+      "CFExpresadoEn": "87",
+      "idCartera": 3,
+      "id": 3
+    },
+    {
+      "fechaEmision": "2021-06-21T23:47:07.213Z",
+      "fechaVencimiento": "2021-09-22T05:00:00.000Z",
+      "valorNominal": "654",
+      "retencion": "344",
+      "CIMotivo": "Portes",
+      "CIExpresadoEn": "320",
+      "CFMotivo": "450",
+      "CFExpresadoEn": "450",
+      "idCartera": 3,
+      "id": 4
+    },
+    {
+      "fechaEmision": "2021-06-21T23:54:22.724Z",
+      "fechaVencimiento": "2021-08-10T05:00:00.000Z",
+      "valorNominal": "900",
+      "retencion": "78",
+      "CIMotivo": "dsfds",
+      "CIExpresadoEn": "2121",
+      "CFMotivo": "60",
+      "CFExpresadoEn": "60",
+      "idCartera": 3,
+      "id": 5
+    },
+    {
+      "fechaEmision": "2021-06-22T00:01:18.853Z",
+      "fechaVencimiento": "2021-09-28T05:00:00.000Z",
+      "valorNominal": "42354",
+      "retencion": "443",
+      "CIMotivo": "fdsfds",
+      "CIExpresadoEn": "44",
+      "CFMotivo": "777",
+      "CFExpresadoEn": "777",
+      "idCartera": 3,
+      "id": 6
+    },
+    {
+      "fechaEmision": "2021-06-22T00:02:00.654Z",
+      "fechaVencimiento": "2021-07-06T05:00:00.000Z",
+      "valorNominal": "54354",
+      "retencion": "454343",
+      "CIMotivo": "hhhhh",
+      "CIExpresadoEn": "999",
+      "CFMotivo": "7776",
+      "CFExpresadoEn": "7776",
+      "idCartera": 3,
+      "id": 7
+    },
+    {
+      "fechaEmision": "2021-06-22T00:16:35.438Z",
+      "fechaVencimiento": "2021-06-22T05:00:00.000Z",
+      "valorNominal": "8080",
+      "retencion": "432432",
+      "CIMotivo": "fdfsd",
+      "CIExpresadoEn": "432",
+      "CFMotivo": "54543",
+      "CFExpresadoEn": "54543",
+      "idCartera": 3,
+      "id": 8
+    },
+    {
+      "fechaEmision": "2021-06-22T00:17:59.182Z",
+      "fechaVencimiento": "2021-11-14T05:00:00.000Z",
+      "valorNominal": "8008",
+      "retencion": "08",
+      "CIMotivo": "Nada manito",
+      "CIExpresadoEn": "60",
+      "CFMotivo": "80",
+      "CFExpresadoEn": "80",
+      "idCartera": 1,
+      "id": 9
+    },
+    {
+      "fechaEmision": "2021-06-22T06:10:54.253Z",
+      "fechaVencimiento": "2021-06-23T05:00:00.000Z",
+      "valorNominal": "20",
+      "retencion": "54",
+      "CIMotivo": "gf",
+      "CIExpresadoEn": "6546546545",
+      "CFMotivo": "6565",
+      "CFExpresadoEn": "6565",
+      "idCartera": 3,
+      "id": 10
+    },
+    {
+      "fechaEmision": "2021-06-22T07:39:48.697Z",
+      "fechaVencimiento": "2021-06-24T05:00:00.000Z",
+      "valorNominal": "543543",
+      "retencion": "54343",
+      "CIMotivo": "fdsfds",
+      "CIExpresadoEn": "543543",
+      "CFMotivo": "877",
+      "CFExpresadoEn": "877",
+      "idCartera": 2,
+      "id": 11
+    },
+    {
+      "fechaEmision": "2021-06-22T07:41:44.591Z",
+      "fechaVencimiento": "2021-06-24T05:00:00.000Z",
+      "valorNominal": "dsdsa",
+      "retencion": "dsds",
+      "CIMotivo": "dsds",
+      "CIExpresadoEn": "dsds",
+      "CFMotivo": "dsds",
+      "CFExpresadoEn": "dsds",
+      "idCartera": 2,
+      "id": 12
+    },
+    {
+      "fechaEmision": "2021-06-22T07:51:44.313Z",
+      "fechaVencimiento": "2021-06-23T05:00:00.000Z",
+      "valorNominal": "vcxvcx",
+      "retencion": "vcvcx",
+      "CIMotivo": "vcxvc",
+      "CIExpresadoEn": "vcxvcx",
+      "CFMotivo": "vcvcx",
+      "CFExpresadoEn": "vcvcx",
+      "idCartera": 3,
+      "id": 13
+    }
+  ]
+}

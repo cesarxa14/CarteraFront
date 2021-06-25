@@ -11,7 +11,6 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class RegisterComponent implements OnInit {
 
-  placeholderType: string;
   registerForm: FormGroup;
   constructor(private _formBuilder : FormBuilder,
               private  router: Router,
@@ -26,9 +25,6 @@ export class RegisterComponent implements OnInit {
     let pattern = '^[a-zA-Z0-9._@\-]*$';
     let form = this._formBuilder.group({
       nombres: ['', [Validators.required]],
-      typeDocument: [null, [Validators.required]],
-      numDocument: [{value: '', disabled: true}, [Validators.required]],
-      email: ['', [Validators.required, Validators.email]],
       username: ['', [Validators.required, Validators.pattern(pattern)]],
       password: ['', [Validators.required, Validators.minLength(6)]]
     }) 
@@ -41,20 +37,7 @@ export class RegisterComponent implements OnInit {
      get nombres() { return this.registerForm.controls['nombres']; }
      get username() { return this.registerForm.controls['username']; }
      get password() { return this.registerForm.controls['password']; }
-     get email() { return this.registerForm.controls['email']; }
-     get typeDocument() { return this.registerForm.controls['typeDocument']; }
-     get numDocument() { return this.registerForm.controls['numDocument']; }
 
-
-  selectTypeDocument(event){
-    this.numDocument.enable()
-    console.log('event', event)
-    if(event.value == 'dni'){
-      this.placeholderType = 'Ingrese el nro de DNI';
-    } else{
-      this.placeholderType = 'Ingrese el nro de RUC';
-    }
-  }
   register(){
     console.log(this.registerForm.value)
     

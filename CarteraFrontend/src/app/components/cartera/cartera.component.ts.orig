@@ -15,8 +15,6 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class CarteraComponent implements OnInit {
 
   cartera:any;
-  metadata:any = JSON.parse(localStorage.getItem('metadata'))
-  USER_ID: number;
   idCartera: number;
   // dataSource = new MatTableDataSource();
   dataSource = new BehaviorSubject<any>([]);
@@ -31,18 +29,19 @@ export class CarteraComponent implements OnInit {
    }
 
   ngOnInit() {
-    this.USER_ID = this.metadata[0].id; 
-    this.generalService.getLetrasByIDUser(this.USER_ID).subscribe((res:any)=>{
-      console.log('res', res)
+
+    this.generalService.getCarterasByID(this.idCartera).subscribe(res=>{
+      this.cartera = res;
+    })
+
+    this.generalService.getLetrasByIDCartera(this.idCartera).subscribe((res:any)=>{
       this.letrasList = res;
       this.letrasList.map(row=>{
         row.fechaEmision = row.fechaEmision.split('T')[0];
         row.fechaVencimiento = row.fechaVencimiento.split('T')[0];
       })
       this.dataSource.next(this.letrasList);
-      this.cartera = res;
     })
-
   }
 
   backClicked() {

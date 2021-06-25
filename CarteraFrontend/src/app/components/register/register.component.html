@@ -5,6 +5,29 @@
             <input matInput placeholder="Ingresa tu nombre de usuario" formControlName="nombres">
         </mat-form-field>
 
+        <mat-form-field appearance="fill">
+            <mat-label>Tipo de Documento</mat-label>
+            <mat-select formControlName="typeDocument"  (selectionChange)="selectTypeDocument($event)">
+              <mat-option [value]="'dni'">
+                DNI
+              </mat-option>
+              <mat-option [value]="'ruc'">
+                RUC
+              </mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <mat-label>Número de documento</mat-label>
+            <input matInput [placeholder]="placeholderType" formControlName="numDocument">
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <mat-label>Email</mat-label>
+            <input matInput placeholder="Ingrese su correo electronico" formControlName="email">
+            <mat-error *ngIf="email.hasError('email')">Ingrese un email válido</mat-error>
+        </mat-form-field>
+
 
         <mat-form-field appearance="fill">
             <mat-label>Usuario</mat-label>
@@ -14,6 +37,7 @@
         <mat-form-field appearance="fill">
             <mat-label>Contraseña</mat-label>
             <input type="password" matInput placeholder="Ingresa tu contraseña" formControlName="password">
+            <mat-error *ngIf="password.hasError('minlength')">Mínimo 6 caracteres</mat-error>
         </mat-form-field>
 
         <button (click)="register()" class="button-login" mat-raised-button color="primary" [disabled]="!registerForm.valid">

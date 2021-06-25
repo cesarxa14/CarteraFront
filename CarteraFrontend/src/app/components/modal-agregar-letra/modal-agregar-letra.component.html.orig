@@ -3,104 +3,23 @@
         <h1>Nueva Letra</h1>
     </div>
 
-    <div *ngIf="!STEP">
+    <div>
         <div>
             <!-- <button mat-button (click)="agregarCosIniciales()">Costos Iniciales</button> -->
-            <form class="formulario" [formGroup]="newLetra1Form">
+            <form class="formulario" [formGroup]="newLetraForm">
                 
                 <mat-form-field appearance="fill">
-                    <mat-label>Nombre</mat-label>
-                    <input matInput placeholder="Ingresa el nombre de la cartera" formControlName="nombre">
-                </mat-form-field>
-
-                 
-                <mat-form-field appearance="fill">
-                    <mat-label>Dias por Año</mat-label>
-                    <mat-select formControlName="diasxaño">
-                      <mat-option [value]="360">
-                        360
-                      </mat-option>
-                      <mat-option [value]="365">
-                        365
-                      </mat-option>
-                    </mat-select>
-                </mat-form-field>  
-
-                <mat-form-field appearance="fill">
-                    <mat-label>Plazo de Tasa</mat-label>
-                    <mat-select formControlName="plazoTasa" >
-                      <mat-option *ngFor="let plazo of PLAZO_TASA" [value]="plazo.value">
-                        {{plazo.nombre}}
-                      </mat-option>
-                    </mat-select>
-                </mat-form-field>
-
-                <mat-form-field appearance="fill">
-                    <mat-label>Tipo de Tasa</mat-label>
-                    <mat-select formControlName="tipoTasa" (selectionChange)="selectTipoTasa($event)">
-                      <mat-option [value]="'efectiva'">
-                        Efectiva
-                      </mat-option>
-                      <mat-option [value]="'nominal'">
-                        Nominal
-                      </mat-option>
-                    </mat-select>
-                </mat-form-field>
-
-                <mat-form-field appearance="fill" *ngIf="!flgTipoTasa">
-                    <mat-label>Tasa Efectiva</mat-label>
-                    <input matInput placeholder="Ingresa ela tasa efectiva" formControlName="tasaEfec">
-                    <span matSuffix>%</span>
-                    <mat-error *ngIf="tasaEfec.hasError('pattern')">Ingrese un valor válido</mat-error>
-                </mat-form-field>
-
-                <mat-form-field appearance="fill" *ngIf="flgTipoTasa">
-                    <mat-label>Tasa Nominal</mat-label>
-                    <input matInput placeholder="Ingresa la tasa nominal" formControlName="tasaNomi">
-                    <span matSuffix>%</span>
-                    <mat-error *ngIf="tasaNomi.hasError('pattern')">Ingrese un valor válido</mat-error>
-                </mat-form-field>
-
-                <mat-form-field appearance="fill">
-                    <mat-label>Fecha de Descuento</mat-label>
-                    <input matInput [matDatepicker]="picker" formControlName="fechaDescuento">
+                    <mat-label>Fecha de Emision</mat-label>
+                    <input matInput [matDatepicker]="picker" formControlName="fechaEmision" [min]="TODAY_DATE">
                     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                     <mat-datepicker #picker></mat-datepicker>
                 </mat-form-field>
 
-                <mat-form-field appearance="fill" *ngIf="flgTipoTasa">
-                    <mat-label>Periodo de Capitalización</mat-label>
-                    <input matInput placeholder="Ingresa el periodo de Capitalización" formControlName="periodoCapi">
-                </mat-form-field>
-
-                <div></div>
-                <button (click)="nextStep()" [disabled]="!newLetra1Form.valid" class="button-login" style="grid-column: 2/3;" mat-raised-button color="primary">
-                    Siguiente
-                </button>
-        
-            </form>
-        
-        </div>
-
-    </div>
-
-    <div *ngIf="STEP">
-        <div>
-            <!-- <button mat-button (click)="agregarCosIniciales()">Costos Iniciales</button> -->
-            <form class="formulario" [formGroup]="newLetra2Form">
-                
-                <mat-form-field appearance="fill">
-                    <mat-label>Fecha de Emision</mat-label>
-                    <input matInput [matDatepicker]="picker1" formControlName="fechaEmision" [min]="TODAY_DATE">
-                    <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
-                    <mat-datepicker #picker1></mat-datepicker>
-                </mat-form-field>
-
                 <mat-form-field appearance="fill">
                     <mat-label>Fecha de Vencimiento</mat-label>
-                    <input matInput [matDatepicker]="picker2" formControlName="fechaVencimiento" [min]="TODAY_DATE">
-                    <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
-                    <mat-datepicker #picker2></mat-datepicker>
+                    <input matInput [matDatepicker]="picker1" formControlName="fechaVencimiento" [min]="TODAY_DATE">
+                    <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                    <mat-datepicker #picker1></mat-datepicker>
                 </mat-form-field>
 
                 <mat-form-field appearance="fill">
@@ -120,7 +39,7 @@
                 </mat-form-field>
 
                 <div style="grid-column: 1/3;">
-                    <h2>Costos Iniciales</h2>
+                    <h1>Costos Iniciales</h1>
                 </div>
 
                 <mat-form-field appearance="fill">
@@ -137,7 +56,7 @@
                 </mat-form-field>
 
                 <div style="grid-column: 1/3;">
-                    <h2>Costos Finales</h2>
+                    <h1>Costos Finales</h1>
                 </div>
 
                 <mat-form-field appearance="fill">
@@ -171,7 +90,7 @@
         
                 
         
-                <button (click)="addLetra()" [disabled]="!newLetra2Form.valid" class="button-login" style="grid-column: 1/3;" mat-raised-button color="primary">
+                <button (click)="addLetra()" [disabled]="!newLetraForm.valid" class="button-login" style="grid-column: 1/3;" mat-raised-button color="primary">
                     AGREGAR
                 </button>
         

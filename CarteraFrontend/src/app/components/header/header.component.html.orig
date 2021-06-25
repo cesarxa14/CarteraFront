@@ -1,0 +1,23 @@
+<div class="container cabecera">
+  <mat-toolbar color="primary">
+      <mat-toolbar-row>
+          <!-- <img class="logo" src="../../../assets/img/avatar.png" alt=""> -->
+        <span class="app-name">ADMINISTRADOR DE CARTERAS</span>
+        <div routerLinkActive="active" *ngIf="metadata" class="routes">
+          <a mat-button  [routerLink]="'/home'">Home</a>
+          <!-- <a mat-button  [routerLink]="'/customer'">Customers</a> -->
+          
+        </div>
+        <span class="flex-expand"></span>
+        <div *ngIf="metadata">
+          <!-- <button mat-button (click)="logout()">LogOut <span class="material-icons"> logout </span></button> -->
+          <button mat-button [matMenuTriggerFor]="beforeMenu">{{metadata[0].nombres}} <span class="material-icons">person</span></button>
+          <mat-menu #beforeMenu="matMenu" xPosition="before">
+            <button mat-menu-item>Ver Perfil</button>
+            <button mat-menu-item (click)="logout()">LogOut</button>
+          </mat-menu>
+        </div>
+      </mat-toolbar-row>
+    </mat-toolbar>
+</div>
+

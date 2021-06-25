@@ -34,16 +34,8 @@ export class GeneralService {
     return this.http.get(`${this.baseLetraURL}?idCartera=${idCartera}`);
   }
 
-  getLetrasByIDUser(idUser){
-    return this.http.get(`${this.baseLetraURL}?idUser=${idUser}`);
-  }
-
   insertLetraByIDCartera(obj, idCartera){
     return this.http.post(`${this.baseLetraURL}?id_cartera=${idCartera}`, obj);
-  }
-
-  insertLetraByIDUser(obj, idUser){
-    return this.http.post(`${this.baseLetraURL}?idUser=${idUser}`, obj);
   }
 
   getUserByUsername(username){

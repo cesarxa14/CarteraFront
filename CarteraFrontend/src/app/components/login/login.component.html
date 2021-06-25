@@ -8,6 +8,7 @@
         <mat-form-field appearance="fill">
             <mat-label>Contraseña</mat-label>
             <input type="password" matInput placeholder="Ingresa tu contraseña" formControlName="password">
+            <mat-error *ngIf="password.hasError('minlength')">Mínimo 6 caracteres</mat-error>
         </mat-form-field>
 
         <button (click)="login()" class="button-login" mat-raised-button color="primary" [disabled]="!loginForm.valid">

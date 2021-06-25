@@ -1,0 +1,66 @@
+<div>
+    <div>
+        <h1>Nueva Letra</h1>
+    </div>
+
+    <div>
+        <div>
+            <!-- <button mat-button (click)="agregarCosIniciales()">Costos Iniciales</button> -->
+            <form class="formulario" [formGroup]="newCarteraForm">
+                
+                <mat-form-field appearance="fill">
+                    <mat-label>Nombre</mat-label>
+                    <input matInput placeholder="Ingresa el nombre de la cartera" formControlName="nombre">
+                </mat-form-field>
+
+                <mat-form-field appearance="fill">
+                    <mat-label>Dias por Año</mat-label>
+                    <input matInput placeholder="Ingresa el nombre de la cartera" formControlName="diasxaño">
+                </mat-form-field>   
+
+                <mat-form-field appearance="fill">
+                    <mat-label>Plazo de Tasa</mat-label>
+                    <input matInput placeholder="Ingresa el valor nominal" formControlName="plazoTasa">
+                    
+                </mat-form-field>
+
+                <mat-form-field appearance="fill">
+                    <mat-label>Tipo de Tasa</mat-label>
+                    <input matInput placeholder="Ingresa el valor nominal" formControlName="tipoTasa">
+                    
+                </mat-form-field>
+
+                <mat-form-field appearance="fill">
+                    <mat-label>Tasa Efectica</mat-label>
+                    <input matInput placeholder="Ingresa ela tasa efectiva" formControlName="tasaEfec">
+                </mat-form-field>
+
+                <mat-form-field appearance="fill">
+                    <mat-label>Tasa Nominal</mat-label>
+                    <input matInput placeholder="Ingresa la tasa nominal" formControlName="tasaNomi">
+                </mat-form-field>
+
+                <mat-form-field appearance="fill">
+                    <mat-label>Fecha de Descuento</mat-label>
+                    <input matInput [matDatepicker]="picker" formControlName="fechaDescuento">
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+
+                <mat-form-field appearance="fill">
+                    <mat-label>Periodo de Capitalización</mat-label>
+                    <input matInput placeholder="Ingresa el periodo de Capitalización" formControlName="periodoCapi">
+                </mat-form-field>
+
+
+                <button (click)="addLetra()" [disabled]="!newCarteraForm.valid" class="button-login" style="grid-column: 1/3;" mat-raised-button color="primary">
+                    AGREGAR
+                </button>
+        
+            </form>
+        
+        </div>
+
+    </div>
+    
+</div>
