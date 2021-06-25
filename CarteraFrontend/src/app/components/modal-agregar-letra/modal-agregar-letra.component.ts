@@ -4,7 +4,7 @@ import {AbstractControl} from '@angular/forms';
 import * as moment from 'moment';
 import { GeneralService } from '../../service/general.service';
 import { MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
-import { ILetter } from '../../models/letter'
+import { ILetter } from '../../models/letter';
 
 @Component({
   selector: 'app-modal-agregar-letra',
@@ -72,6 +72,7 @@ export class ModalAgregarLetraComponent implements OnInit {
 
   constructor(private _formBuilder : FormBuilder,
               private generalService: GeneralService,
+              // @Inject(MAT_DIALOG_DATA) public data: any,
               @Inject(MAT_DIALOG_DATA) public data: any,
               private dialogRef: MatDialogRef<ModalAgregarLetraComponent>) { }
 
