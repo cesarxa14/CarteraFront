@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { Router} from '@angular/router';
 import { GeneralService } from '../../service/general.service';
+import { AuthService } from '../../service/auth.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 
@@ -17,6 +18,7 @@ export class LoginComponent implements OnInit {
   constructor(private _formBuilder : FormBuilder,
               private  router: Router,
               private generalService: GeneralService,
+              private authService: AuthService,
               private _snackBar: MatSnackBar) { }
 
   ngOnInit() {
@@ -41,21 +43,36 @@ export class LoginComponent implements OnInit {
   login(){
     console.log(this.loginForm.value)
     
-
-    this.generalService.login(this.username.value, this.password.value).subscribe((res:any)=>{
-      if(res.length>0){
-        this.router.navigateByUrl('/home')
-        localStorage.setItem('metadata', JSON.stringify(res));
-      } else{
-        this._snackBar.open('Usuario y/o contraseña incorrecta', 'Cerrar', {
+    this.authService.login(this.loginForm.value).subscribe((res:any) =>{
+      console.log('login', res)
+      if(res && res.msj) {
+        this._snackBar.open(res.msj, 'Cerrar', {
           duration:4000, 
           horizontalPosition: 'start',
           panelClass: ['my-snack-bar']  
         });
-        
       }
-      console.log(res) 
+      else {
+        localStorage.setItem('token', res.token);
+        localStorage.setItem('metadata', JSON.stringify(res.metadata));
+        this.router.navigateByUrl('/home')
+
+      }
     })
+    // this.generalService.login(this.username.value, this.password.value).subscribe((res:any)=>{
+    //   if(res.length>0){
+    //     this.router.navigateByUrl('/home')
+    //     localStorage.setItem('metadata', JSON.stringify(res));
+    //   } else{
+    //     this._snackBar.open('Usuario y/o contraseña incorrecta', 'Cerrar', {
+    //       duration:4000, 
+    //       horizontalPosition: 'start',
+    //       panelClass: ['my-snack-bar']  
+    //     });
+        
+    //   }
+    //   console.log(res) 
+    // })
     
   }
 

@@ -10,7 +10,7 @@ const routes: Routes = [
   { path: '', redirectTo: 'inicio', pathMatch: 'full' },
   { path: 'inicio', component: InicioComponent},
   { path: 'home', canActivate:[AuthGuard], component: HomeComponent},
-  { path: 'cartera/:id', canActivate:[AuthGuard], component: CarteraComponent}
+  { path: 'cartera', canActivate:[AuthGuard], component: CarteraComponent}
 ];
 
 

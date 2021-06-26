@@ -12,10 +12,12 @@ export class HeaderComponent implements OnInit {
   constructor(private router: Router) { }
 
   ngOnInit() {
+    console.log(this.metadata)
   }
 
   logout(){
     localStorage.removeItem('metadata');
+    localStorage.removeItem('token');
     this.router.navigateByUrl('/inicio');
     
   }

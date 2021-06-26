@@ -3,6 +3,7 @@ import { FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {AbstractControl} from '@angular/forms';
 import * as moment from 'moment';
 import { GeneralService } from '../../service/general.service';
+import { LetterService } from '../../service/letter.service';
 import { MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import { ILetter } from '../../models/letter'
 
@@ -72,11 +73,12 @@ export class ModalAgregarLetraComponent implements OnInit {
 
   constructor(private _formBuilder : FormBuilder,
               private generalService: GeneralService,
+              private letterService: LetterService,
               @Inject(MAT_DIALOG_DATA) public data: any,
               private dialogRef: MatDialogRef<ModalAgregarLetraComponent>) { }
 
   ngOnInit() {
-    this.USER_ID = this.metadata[0].id; 
+    this.USER_ID = this.metadata.id; 
     this.newLetra1Form = this._builderForm();
     this.diasxaño.setValue('360');
     this.newLetra2Form = this._builderForm2();
@@ -191,11 +193,16 @@ export class ModalAgregarLetraComponent implements OnInit {
     // }
 
     console.log('nueva letra', this.newLetter)
-    this.generalService.insertLetraByIDUser(this.newLetter, this.USER_ID).subscribe(res=>{
-      console.log('post letra', res)
+
+    this.letterService.insertLetterByUser(this.newLetter).subscribe((res:any)=>{
       this.letraEmitter.emit(res);
       this.dialogRef.close()
     })
+    // this.generalService.insertLetraByIDUser(this.newLetter, this.USER_ID).subscribe(res=>{
+    //   console.log('post letra', res)
+    //   this.letraEmitter.emit(res);
+    //   // this.dialogRef.close()
+    // })
   }
 
   dateValidator(AC: AbstractControl) {

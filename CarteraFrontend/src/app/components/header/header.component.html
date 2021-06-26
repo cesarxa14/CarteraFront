@@ -11,7 +11,7 @@
         <span class="flex-expand"></span>
         <div *ngIf="metadata">
           <!-- <button mat-button (click)="logout()">LogOut <span class="material-icons"> logout </span></button> -->
-          <button mat-button [matMenuTriggerFor]="beforeMenu">{{metadata[0].nombres}} <span class="material-icons">person</span></button>
+          <button mat-button [matMenuTriggerFor]="beforeMenu">{{metadata.name}} <span class="material-icons">person</span></button>
           <mat-menu #beforeMenu="matMenu" xPosition="before">
             <button mat-menu-item>Ver Perfil</button>
             <button mat-menu-item (click)="logout()">LogOut</button>

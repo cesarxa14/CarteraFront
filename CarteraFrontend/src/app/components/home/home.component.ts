@@ -21,19 +21,19 @@ export class HomeComponent implements OnInit {
               public dialog: MatDialog) { }
 
   ngOnInit() {
-    this.USER_NAME = this.metadata[0].nombres; 
-    this.USER_ID = this.metadata[0].id; 
+    this.USER_NAME = this.metadata.nombres; 
+    this.USER_ID = this.metadata.id; 
 
-    this.generalService.getCarterasByUser(this.metadata[0].id).subscribe((res:any)=>{
-      console.log(res);
-      this.carteras = res;
-    })
+    // this.generalService.getCarterasByUser(this.metadata.id).subscribe((res:any)=>{
+    //   console.log(res);
+    //   this.carteras = res;
+    // })
   }
 
 
-  goToCard(i){
-    console.log(i);
-    this.router.navigateByUrl(`/cartera/${i}`)
+  goToCard(){
+    
+    this.router.navigateByUrl(`/cartera`)
   }
 
   abrirModalNuevaCartera(){
