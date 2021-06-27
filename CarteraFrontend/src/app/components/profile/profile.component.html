@@ -1,0 +1,53 @@
+<div>
+    <app-header></app-header>
+    <div class="contenedor">
+      <mat-progress-bar *ngIf="progress_bar" mode="query"></mat-progress-bar>
+      <mat-card>
+        <button (click)="abrirModalEditar()" class="button-editar" mat-raised-button color="primary"> Editar <span class="material-icons">
+          edit
+          </span></button>
+        <div class="img-profile">
+          <img class="img-user" src="../../../assets/images/profile.jpg" alt="">
+        </div>
+        
+        <div class="datos">
+          <div>
+            <h3>Nombres</h3>
+            <h4>{{metadata.name}}</h4>
+          </div>
+  
+          <div>
+            <h3>Email</h3>
+            <h4>{{metadata.email}}</h4>
+          </div>
+  
+          <div>
+            <h3>Tipo de Documento</h3>
+            <h4>{{metadata.type_document}}</h4>
+          </div>
+  
+          <div>
+            <h3>Numero de Documento</h3>
+            <h4>{{metadata.num_document}}</h4>
+          </div>
+  
+          <div>
+            <h3>Usuario</h3>
+            <h4>{{metadata.c_username}}</h4>
+          </div>
+  
+          <div>
+            <h3>Password</h3>
+            <h4>*********</h4>
+          </div>
+  
+  
+        </div>
+      </mat-card>
+      <div class="btn-delete">
+          <button (click)="abrirModalConfirmacion()" mat-raised-button color="warn">Eliminar Cuenta</button>
+      </div>
+    </div>
+    
+    
+  </div>

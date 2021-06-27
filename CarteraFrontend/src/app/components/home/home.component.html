@@ -5,14 +5,12 @@
         <h1>Bienvenido {{USER_NAME}}!</h1>
     </div>
     <div class="carteras-contenedor">
-        <div class="subtitulo">
+        <mat-card class="subtitulo">
             <div>
                 <h1>Mis Carteras</h1>
             </div>
-            <div>
-                <button mat-raised-button color="primary" (click)="abrirModalNuevaCartera()"> Nueva Cartera</button>
-            </div>
-        </div>
+            
+        </mat-card>
         <div class="contenedor-cards">
             <mat-card class="example-card" (click)="goToCard()">
                 <mat-card-header>

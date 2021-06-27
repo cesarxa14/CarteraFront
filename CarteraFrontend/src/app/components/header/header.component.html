@@ -5,6 +5,7 @@
         <span class="app-name">ADMINISTRADOR DE CARTERAS</span>
         <div routerLinkActive="active" *ngIf="metadata" class="routes">
           <a mat-button  [routerLink]="'/home'">Home</a>
+          <a mat-button  [routerLink]="'/tipo-de-cambio'">Tipo de Cambio</a>
           <!-- <a mat-button  [routerLink]="'/customer'">Customers</a> -->
           
         </div>
@@ -13,7 +14,7 @@
           <!-- <button mat-button (click)="logout()">LogOut <span class="material-icons"> logout </span></button> -->
           <button mat-button [matMenuTriggerFor]="beforeMenu">{{metadata.name}} <span class="material-icons">person</span></button>
           <mat-menu #beforeMenu="matMenu" xPosition="before">
-            <button mat-menu-item>Ver Perfil</button>
+            <button mat-menu-item (click)="goToProfile()">Ver Perfil</button>
             <button mat-menu-item (click)="logout()">LogOut</button>
           </mat-menu>
         </div>

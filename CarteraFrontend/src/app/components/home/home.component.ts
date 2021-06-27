@@ -21,7 +21,7 @@ export class HomeComponent implements OnInit {
               public dialog: MatDialog) { }
 
   ngOnInit() {
-    this.USER_NAME = this.metadata.nombres; 
+    this.USER_NAME = this.metadata.name; 
     this.USER_ID = this.metadata.id; 
 
     // this.generalService.getCarterasByUser(this.metadata.id).subscribe((res:any)=>{
@@ -32,16 +32,8 @@ export class HomeComponent implements OnInit {
 
 
   goToCard(){
-    
     this.router.navigateByUrl(`/cartera`)
   }
 
-  abrirModalNuevaCartera(){
-    const dialogRef = this.dialog.open(ModalAgregarCarteraComponent, {
-      width: '900px',
-      height: '650px',
-      data: {idUser: this.USER_ID}
-    })
-  }
 
 }

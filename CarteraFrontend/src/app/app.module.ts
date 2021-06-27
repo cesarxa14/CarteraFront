@@ -17,6 +17,10 @@ import { HomeComponent } from './components/home/home.component';
 import { CarteraComponent } from './components/cartera/cartera.component';
 import { ModalAgregarLetraComponent } from './components/modal-agregar-letra/modal-agregar-letra.component';
 import { ModalAgregarCarteraComponent } from './components/modal-agregar-cartera/modal-agregar-cartera.component';
+import { ProfileComponent } from './components/profile/profile.component';
+import { ModalConfirmacionComponent } from './components/modal-confirmacion/modal-confirmacion.component';
+import { ModalEditProfileComponent } from './components/modal-edit-profile/modal-edit-profile.component';
+import { TipoCambioComponent } from './components/tipo-cambio/tipo-cambio.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +33,11 @@ import { ModalAgregarCarteraComponent } from './components/modal-agregar-cartera
     HomeComponent,
     CarteraComponent,
     ModalAgregarLetraComponent,
-    ModalAgregarCarteraComponent
+    ModalAgregarCarteraComponent,
+    ProfileComponent,
+    ModalConfirmacionComponent,
+    ModalEditProfileComponent,
+    TipoCambioComponent
   ],
   imports: [
     BrowserModule,
@@ -43,7 +51,8 @@ import { ModalAgregarCarteraComponent } from './components/modal-agregar-cartera
     HttpClientModule
   ],
   providers: [],
-  entryComponents: [ModalAgregarLetraComponent, ModalAgregarCarteraComponent],
+  entryComponents: [ModalAgregarLetraComponent, ModalAgregarCarteraComponent, ModalEditProfileComponent,
+                    ModalConfirmacionComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

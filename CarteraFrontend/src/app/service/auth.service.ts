@@ -7,6 +7,7 @@ import { Observable, BehaviorSubject} from 'rxjs';
 export class AuthService {
 
   private baseAuthURL = 'http://localhost:3000/api/auth';
+  private tipoCambioAPI = 'https://api.apis.net.pe/v1/tipo-cambio-sunat';
   constructor(private http: HttpClient) { }
 
   login(usuario) {
@@ -15,5 +16,9 @@ export class AuthService {
 
   register(usuario) {
     return this.http.post(`${this.baseAuthURL}/register`, usuario);
+  }
+
+  getTipoCambio(){
+    return this.http.get(`${this.baseAuthURL}/tipoCambio`);
   }
 }
