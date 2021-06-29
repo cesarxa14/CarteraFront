@@ -262,7 +262,7 @@ export class ModalAgregarLetraComponent implements OnInit {
         description: row.motivo,
         value: row.vExpre,
         condition: 'initial',
-        id_letter: letterId
+        idLetter: letterId
       };
       expenses.push(expense);
     });
@@ -272,7 +272,7 @@ export class ModalAgregarLetraComponent implements OnInit {
         description: row.motivo,
         value: row.vExpre,
         condition: 'final',
-        id_letter: letterId
+        idLetter: letterId
       };
       expenses.push(expense);
     });

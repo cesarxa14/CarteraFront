@@ -3,5 +3,5 @@ export interface IExpense {
   description?: string;
   value?: number;
   condition?: string;
-  id_letter?: number;
+  idLetter?: number;
 }
