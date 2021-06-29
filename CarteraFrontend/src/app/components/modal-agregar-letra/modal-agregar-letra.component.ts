@@ -26,11 +26,11 @@ export class ModalAgregarLetraComponent implements OnInit {
       nombre: 'Semestral'
     },
     {
-      value: 90,
+      value: 120,
       nombre: 'Cuatrimestral'
     },
     {
-      value: 120,
+      value: 90,
       nombre: 'Trimestral'
     },
     {
@@ -200,7 +200,7 @@ export class ModalAgregarLetraComponent implements OnInit {
   addLetra() {
     // this.retencion.hasError('pattern')
     this.calcularDatosIntermedios();
-
+    return;
     this.newLetter = {
       nombre: this.nombre.value,
       diasxaño: this.diasxaño.value,
@@ -276,22 +276,36 @@ export class ModalAgregarLetraComponent implements OnInit {
     let tasaNomDecimal: number;
     let diffDias: number;
     let tcea: number;
+
+    this.retencion.setValue(parseInt(this.retencion.value));
+    this.valorNominal.setValue(parseInt(this.valorNominal.value));
+
     if ( this.tipoTasa.value === 'efectiva') {
 
       tasaEfecDecimal = this.tasaEfec.value / 100;
-
-      const fechaInicio = new Date(this.fechaEmision.value.toString());
+      console.log(tasaEfecDecimal)
+      const fechaDescuento = new Date(this.fechaDescuento.value.toString());
       const fechaFinal = new Date(this.fechaVencimiento.value.toString());
-      console.log('Puro Fecha emision' + this.fechaEmision.value.toString());
-      console.log('Cambio Fecha emision' + fechaInicio.getDate());
-      diffDias = Math.round((fechaFinal.getTime() - fechaInicio.getTime()) / (1000 * 60 * 60 * 24) + 1);
-      tasaEfecPeriodoDescuento = Math.pow((1 + tasaEfecDecimal), (diffDias / this.plazoTasa.value)) - 1;
-      console.log('diffDias: ' + diffDias);
-      console.log('tasaEfecPeriodoDescuento: ' + tasaEfecPeriodoDescuento);
-      console.log('n :' + diffDias  );
-      console.log('plazoTasa :' + this.plazoTasa.value  );
 
-      this.tasaDescuento = tasaEfecPeriodoDescuento / (tasaEfecPeriodoDescuento + 1);
+      this.diasTrasl = Math.round((fechaFinal.getTime() - fechaDescuento.getTime()) / (1000 * 60 * 60 * 24) + 1) - 1;
+      tasaEfecPeriodoDescuento = Math.pow((1 + tasaEfecDecimal), (this.diasTrasl / this.plazoTasa.value)) - 1;
+      this.tasaEfec.setValue(tasaEfecPeriodoDescuento);
+
+      this.tasaDescuento = this.tasaEfec.value / (this.tasaEfec.value + 1);
+      this.descuento = this.valorNominal.value * this.tasaDescuento;
+      this.valorNeto = this.valorNominal.value - this.descuento;
+      this.valorNeto = parseFloat(this.valorNeto.toFixed(2));
+      this.valorRecibido = this.valorNominal.value - this.retencion.value - this.descuento; // aqui falta restar los costes iniciales
+      this.valorRecibido = parseFloat(this.valorRecibido.toFixed(2));
+      this.valorEntregado = this.valorNominal.value - this.retencion.value; // aqui falta sumar los costes finales
+      this.valorEntregado = parseFloat(this.valorEntregado.toFixed(2));
+      this.TCEA = Math.pow((this.valorEntregado/this.valorRecibido),(360/this.diasTrasl)) - 1;
+      // console.log('this.diasTrasl: ' + this.diasTrasl);
+      // console.log('tasaEfecPeriodoDescuento: ' + tasaEfecPeriodoDescuento);
+      // console.log('n :' + this.diasTrasl  );
+      // console.log('plazoTasa :' + this.plazoTasa.value  );
+
+      // this.tasaDescuento = tasaEfecPeriodoDescuento / (tasaEfecPeriodoDescuento + 1);
     } else if (this.tipoTasa.value === 'nominal') {
       tasaNomDecimal = this.tasaNomi.value / 100;
       const fechaInicio = new Date(this.fechaEmision.value.toString());
@@ -299,10 +313,10 @@ export class ModalAgregarLetraComponent implements OnInit {
       console.log('Puro Fecha emision' + this.fechaEmision.value.toString());
       console.log('Cambio Fecha emision' + fechaInicio.getDate());
 
-      diffDias = Math.round((fechaFinal.getTime() - fechaInicio.getTime()) / (1000 * 60 * 60 * 24) + 1);
-      const nDias = Math.floor(diffDias / this.periodoCapi.value) ;
+      this.diasTrasl = Math.round((fechaFinal.getTime() - fechaInicio.getTime()) / (1000 * 60 * 60 * 24) + 1);
+      const nDias = Math.floor(this.diasTrasl / this.periodoCapi.value) ;
       const mDias = this.plazoTasa.value / this.periodoCapi.value;
-      console.log('dias :' + diffDias );
+      console.log('dias :' + this.diasTrasl );
       console.log('capitalizacion :' + this.periodoCapi.value  );
       console.log('n :' + nDias  );
       console.log('m: ' + mDias);
@@ -313,20 +327,51 @@ export class ModalAgregarLetraComponent implements OnInit {
       console.log('TEP :' + tep  );
       this.tasaDescuento = tep / (tep + 1);
     }
-    this.diasTrasl = diffDias;
-    this.descuento = this.valorNominal.value * this.tasaDescuento;
-    this.valorNeto = this.valorNominal.value - this.descuento;
-    this.valorRecibido = this.valorNeto - parseInt(this.CIExpresadoEn.value) - parseInt(this.retencion.value);
-    this.valorEntregado = parseInt(this.valorNominal.value) + parseInt(this.CFExpresadoEn.value) - parseInt(this.retencion.value);
-    console.log('costos finales: ' + this.CFExpresadoEn.value);
-    this.TCEA = Math.pow((this.valorEntregado / this.valorRecibido), (this.diasxaño.value / this.diasTrasl)) - 1;
-    tcea = Math.pow((this.valorEntregado / this.valorRecibido), (this.diasxaño.value / this.diasTrasl)) - 1;
-    console.log('TCEAAAAAAAAA: ' + tcea);
-    console.log('Ve/Vr: ' + (this.valorEntregado / this.valorRecibido));
-    console.log('Ve: ' + this.valorEntregado );
-    console.log('Vr: '  + this.valorRecibido);
+    // this.diasTrasl = diffDias;
+    // this.descuento = this.valorNominal.value * this.tasaDescuento;
+    // this.valorNeto = this.valorNominal.value - this.descuento;
+    // this.valorRecibido = this.valorNeto - parseInt(this.CIExpresadoEn.value) - parseInt(this.retencion.value);
+    // this.valorEntregado = parseInt(this.valorNominal.value) + parseInt(this.CFExpresadoEn.value) - parseInt(this.retencion.value);
+    // console.log('costos finales: ' + this.CFExpresadoEn.value);
+    // this.TCEA = Math.pow((this.valorEntregado / this.valorRecibido), (this.diasxaño.value / this.diasTrasl)) - 1;
+    // tcea = Math.pow((this.valorEntregado / this.valorRecibido), (this.diasxaño.value / this.diasTrasl)) - 1;
+    // console.log('TCEAAAAAAAAA: ' + tcea);
+    // console.log('Ve/Vr: ' + (this.valorEntregado / this.valorRecibido));
+    // console.log('Ve: ' + this.valorEntregado );
+    // console.log('Vr: '  + this.valorRecibido);
 
-    console.log('dA/dT: ' + (this.diasxaño.value / this.diasTrasl));
+    // console.log('dA/dT: ' + (this.diasxaño.value / this.diasTrasl));
+
+
+
+    //console values
+    this.newLetter = {
+      nombre: this.nombre.value,
+      diasxaño: this.diasxaño.value,
+      plazoTasa: this.plazoTasa.value,
+      tipoTasa: this.tipoTasa.value,
+      tasaEfect: this.tasaEfec.value,
+      tasaNomi: this.tasaNomi.value,
+      fechaDescuento: this.fechaDescuento.value,
+      periodoCapi: this.periodoCapi.value,
+      fechaEmision: this.fechaVencimiento.value,
+      fechaVencimiento: this.fechaVencimiento.value,
+      valorNominal: this.valorNominal.value,
+      retencion: this.retencion.value,
+      CIMotivo: this.CIMotivo.value,
+      CIExpresadoEn: this.CIExpresadoEn.value,
+      CFMotivo: this.CFMotivo.value,
+      CFExpresadoEn: this.CFExpresadoEn.value,
+      valorEntregado: this.valorEntregado,
+      tasaDescuento: this.tasaDescuento,
+      descuento: this.descuento,
+      valorNeto: this.valorNeto,
+      valorRecibido: this.valorRecibido,
+      TCEP: this.TCEA,
+      idUser: this.USER_ID
+    };
+
+    console.log(this.newLetter)
   }
 
   addCI(){

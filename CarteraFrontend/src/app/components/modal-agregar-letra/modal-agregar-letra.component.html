@@ -92,7 +92,7 @@
 
                 <mat-form-field appearance="fill">
                     <mat-label>Fecha de Vencimiento</mat-label>
-                    <input matInput [matDatepicker]="picker2" formControlName="fechaVencimiento" [min]="TODAY_DATE" (dateChange)="FVenciChanged($event)">
+                    <input matInput [matDatepicker]="picker2" formControlName="fechaVencimiento" [min]="FEmi" (dateChange)="FVenciChanged($event)">
                     <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
                     <mat-datepicker #picker2></mat-datepicker>
                 </mat-form-field>

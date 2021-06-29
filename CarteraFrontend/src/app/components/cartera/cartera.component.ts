@@ -34,7 +34,7 @@ export class CarteraComponent implements OnInit {
    }
 
   ngOnInit() {
-    this.USER_ID = this.metadata[0].id ;
+    this.USER_ID = this.metadata.id ;
     console.log();
     this.letterService.getLettersByIDUser(this.USER_ID).subscribe((res:any)=>{
       console.log('letras x user', res);
