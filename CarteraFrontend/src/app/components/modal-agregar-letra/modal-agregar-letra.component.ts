@@ -5,7 +5,7 @@ import * as moment from 'moment';
 import { GeneralService } from '../../service/general.service';
 import { LetterService } from '../../service/letter.service';
 import { MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
-import { ILetter } from '../../models/letter'
+import { ILetter } from '../../models/letter';
 
 @Component({
   selector: 'app-modal-agregar-letra',
@@ -14,144 +14,144 @@ import { ILetter } from '../../models/letter'
 })
 export class ModalAgregarLetraComponent implements OnInit {
 
-  metadata:any = JSON.parse(localStorage.getItem('metadata'))
+  metadata: any = JSON.parse(localStorage.getItem('metadata'));
   newLetter: ILetter;
   PLAZO_TASA: any[] = [
     {
-      value: 1,
+      value: 360,
       nombre: 'Anual'
     },
     {
-      value: 2,
+      value: 180,
       nombre: 'Semestral'
     },
     {
-      value: 3,
+      value: 90,
       nombre: 'Cuatrimestral'
     },
     {
-      value: 4,
+      value: 120,
       nombre: 'Trimestral'
     },
     {
-      value: 6,
+      value: 60,
       nombre: 'Bimestral'
     },
     {
-      value: 12,
+      value: 30,
       nombre: 'Mensual'
     },
     {
-      value: 24,
+      value: 15,
       nombre: 'Quincenal'
     },
     {
-      value: 360,
+      value: 1,
       nombre: 'Diario'
     },
 
-  ]
+  ];
   USER_ID: number;
   @Output() letraEmitter: any = new EventEmitter();
-  TODAY_DATE: Date = new Date()
-  default: any = 'hola'
+  TODAY_DATE: Date = new Date();
+  default: any = 'hola';
   idCartera: number;
 
-  flgTipoTasa: boolean = false;
-  STEP: boolean = false;
+  flgTipoTasa = false; // si la tasa es nominal o efectiva
+  STEP = false;
   newLetra1Form: FormGroup;
   newLetra2Form: FormGroup;
 
-  //Datos Intermedios
-  diasTrasl:number;
-  descuento:number;
-  tasaDescuento:number;
+  // Datos Intermedios
+  diasTrasl: number;
+  descuento: number;
+  tasaDescuento: number;
   valorEntregado: number;
   valorRecibido: number;
   valorNeto: number;
-  TCEP:number;
+  TCEA: number;
 
-  constructor(private _formBuilder : FormBuilder,
+  constructor(private _formBuilder: FormBuilder,
               private generalService: GeneralService,
               private letterService: LetterService,
               @Inject(MAT_DIALOG_DATA) public data: any,
               private dialogRef: MatDialogRef<ModalAgregarLetraComponent>) { }
 
   ngOnInit() {
-    this.USER_ID = this.metadata.id; 
+    this.USER_ID = this.metadata.id;
     this.newLetra1Form = this._builderForm();
     this.diasxaño.setValue('360');
     this.newLetra2Form = this._builderForm2();
-    this.idCartera = parseInt(this.data.idCartera)
+    this.idCartera = parseInt(this.data.idCartera);
   }
 
-  
 
-  _builderForm(){
-    let pattern = '^[a-zA-Z0-9._@\-]*$';
-    let numberPattern = /^\d{1,10}$/;
-    let floatPattern = '[+-]?([0-9]*[.])?[0-9]+'
-    let form = this._formBuilder.group({
+
+  _builderForm() {
+    const pattern = '^[a-zA-Z0-9._@\-]*$';
+    const numberPattern = /^\d{1,10}$/;
+    const floatPattern = '[+-]?([0-9]*[.])?[0-9]+';
+    const form = this._formBuilder.group({
       nombre: ['', [Validators.required]],
       diasxaño: [null, [Validators.required]],
       plazoTasa: [null, [Validators.required, ]],
-      tipoTasa: [null,[Validators.required]],
+      tipoTasa: [null, [Validators.required]],
       tasaEfec: [null, [Validators.pattern(floatPattern)]],
       tasaNomi: [null, [Validators.pattern(floatPattern)]],
-      fechaDescuento: [null,[this.dateValidator, Validators.required]],
+      fechaDescuento: [null, [this.dateValidator, Validators.required]],
       periodoCapi: [null]
-    }) 
+    });
 
     return form;
   }
 
-   /**Getters */
-   get nombre()     { return this.newLetra1Form.controls['nombre']; }
-   get diasxaño() { return this.newLetra1Form.controls['diasxaño']; }
-   get plazoTasa()     { return this.newLetra1Form.controls['plazoTasa']; }
-   get tipoTasa()        { return this.newLetra1Form.controls['tipoTasa']; }
-   get tasaEfec()         { return this.newLetra1Form.controls['tasaEfec']; }
-   get tasaNomi()    { return this.newLetra1Form.controls['tasaNomi']; }
-   get fechaDescuento()         { return this.newLetra1Form.controls['fechaDescuento']; }
-   get periodoCapi()    { return this.newLetra1Form.controls['periodoCapi']; }
+   /*Getters */
+   get nombre()     { return this.newLetra1Form.controls.nombre; }
+   get diasxaño() { return this.newLetra1Form.controls.diasxaño; }
+   get plazoTasa()     { return this.newLetra1Form.controls.plazoTasa; }
+   get tipoTasa()        { return this.newLetra1Form.controls.tipoTasa; }
+   get tasaEfec()         { return this.newLetra1Form.controls.tasaEfec; }
+   get tasaNomi()    { return this.newLetra1Form.controls.tasaNomi; }
+   get fechaDescuento()         { return this.newLetra1Form.controls.fechaDescuento; }
+   get periodoCapi()    { return this.newLetra1Form.controls.periodoCapi; }
 
-  _builderForm2(){
-    let pattern = '^[a-zA-Z0-9._@\-]*$';
-    let numberPattern = /^\d{1,10}$/;
-    
-    let form = this._formBuilder.group({
-      fechaEmision: [this.TODAY_DATE, [Validators.required,this.dateValidator]],
-      fechaVencimiento: [null, [Validators.required,this.dateValidator]],
+  /*Getters */
+  get fechaEmision()     { return this.newLetra2Form.controls.fechaEmision; }
+  get fechaVencimiento() { return this.newLetra2Form.controls.fechaVencimiento; }
+  get valorNominal()     { return this.newLetra2Form.controls.valorNominal; }
+  get retencion()        { return this.newLetra2Form.controls.retencion; }
+  get CIMotivo()         { return this.newLetra2Form.controls.CIMotivo; }
+  get CIExpresadoEn()    { return this.newLetra2Form.controls.CIExpresadoEn; }
+  get CFMotivo()         { return this.newLetra2Form.controls.CFMotivo; }
+  get CFExpresadoEn()    { return this.newLetra2Form.controls.CFExpresadoEn; }
+
+  _builderForm2() {
+    const pattern = '^[a-zA-Z0-9._@\-]*$';
+    const numberPattern = /^\d{1,10}$/;
+
+    const form = this._formBuilder.group({
+      fechaEmision: [this.TODAY_DATE, [Validators.required, this.dateValidator]],
+      fechaVencimiento: [null, [Validators.required, this.dateValidator]],
       valorNominal: [null, [Validators.required, Validators.pattern(numberPattern)]],
-      retencion: [null,[Validators.required, Validators.pattern(numberPattern)]],
+      retencion: [null, [Validators.required, Validators.pattern(numberPattern)]],
       CIMotivo: [null],
-      CIExpresadoEn: [null,[Validators.pattern(numberPattern)]],
+      CIExpresadoEn: [null, [Validators.pattern(numberPattern)]],
       CFMotivo: [null],
-      CFExpresadoEn: [null,[Validators.pattern(numberPattern)]],
+      CFExpresadoEn: [null, [Validators.pattern(numberPattern)]],
       // cosIniciales: this._formBuilder.array([])
-    }) 
+    });
 
     return form;
   }
-  /**Getters */
-  get fechaEmision()     { return this.newLetra2Form.controls['fechaEmision']; }
-  get fechaVencimiento() { return this.newLetra2Form.controls['fechaVencimiento']; }
-  get valorNominal()     { return this.newLetra2Form.controls['valorNominal']; }
-  get retencion()        { return this.newLetra2Form.controls['retencion']; }
-  get CIMotivo()         { return this.newLetra2Form.controls['CIMotivo']; }
-  get CIExpresadoEn()    { return this.newLetra2Form.controls['CIExpresadoEn']; }
-  get CFMotivo()         { return this.newLetra2Form.controls['CFMotivo']; }
-  get CFExpresadoEn()    { return this.newLetra2Form.controls['CFExpresadoEn']; }
-
-  agregarCosIniciales(){
+  agregarCosIniciales() {
     const creds = this.newLetra2Form.controls.cosIniciales as FormArray;
     creds.push(this._formBuilder.group({
       motivo: '',
-      expresadoEn:''
-    }))
+      expresadoEn: ''
+    }));
   }
 
-  addLetra(){
+  addLetra() {
     // this.retencion.hasError('pattern')
     this.calcularDatosIntermedios();
 
@@ -177,9 +177,9 @@ export class ModalAgregarLetraComponent implements OnInit {
       descuento: this.descuento,
       valorNeto: this.valorNeto,
       valorRecibido: this.valorRecibido,
-      TCEP: this.TCEP,
+      TCEP: this.TCEA,
       idUser: this.USER_ID
-    }
+    };
     // let obj = {
     //   fechaEmision: this.fechaEmision.value,
     //   fechaVencimiento: this.fechaVencimiento.value,
@@ -189,15 +189,15 @@ export class ModalAgregarLetraComponent implements OnInit {
     //   CIExpresadoEn: this.CIExpresadoEn.value,
     //   CFMotivo: this.CFExpresadoEn.value,
     //   CFExpresadoEn: this.CFExpresadoEn.value,
-    //   idCartera: this.idCartera 
+    //   idCartera: this.idCartera
     // }
 
-    console.log('nueva letra', this.newLetter)
+    console.log('nueva letra', this.newLetter);
 
-    this.letterService.insertLetterByUser(this.newLetter).subscribe((res:any)=>{
+    this.letterService.insertLetterByUser(this.newLetter).subscribe((res: any) => {
       this.letraEmitter.emit(res);
-      this.dialogRef.close()
-    })
+      this.dialogRef.close();
+    });
     // this.generalService.insertLetraByIDUser(this.newLetter, this.USER_ID).subscribe(res=>{
     //   console.log('post letra', res)
     //   this.letraEmitter.emit(res);
@@ -206,36 +206,80 @@ export class ModalAgregarLetraComponent implements OnInit {
   }
 
   dateValidator(AC: AbstractControl) {
-    if (AC && AC.value && !moment(AC.value, 'YYYY-MM-DD',true).isValid()) {
-      return {'dateVaidator': true};
+    if (AC && AC.value && !moment(AC.value, 'YYYY-MM-DD', true).isValid()) {
+      return {dateVaidator: true};
     }
     return null;
   }
 
-  nextStep(){
+  nextStep() {
     this.STEP = true;
   }
 
-  selectTipoTasa(event){
-    if(event.value == 'efectiva'){
+  selectTipoTasa(event) {
+    if (event.value === 'efectiva') {
       this.flgTipoTasa = false;
-    } else if(event.value == 'nominal'){
+    } else if (event.value === 'nominal') {
       this.flgTipoTasa = true;
     }
   }
 
-  calcularDatosIntermedios(){
-    if(this.tipoTasa.value == 'efectiva'){
-      this.tasaDescuento = this.tasaEfec.value / (this.tasaEfec.value + 1);
-    } else if(this.tipoTasa.value == 'nominal'){
-      let tep = Math.pow((1+ (this.tasaNomi.value/this.plazoTasa.value)),this.plazoTasa.value) - 1; 
+  calcularDatosIntermedios() {
+    let tasaEfecDecimal: number;
+    let tasaEfecPeriodoDescuento: number;
+    let tasaNomDecimal: number;
+    let diffDias: number;
+    let tcea: number;
+    if ( this.tipoTasa.value === 'efectiva') {
+      tasaEfecDecimal = this.tasaEfec.value / 100;
+
+      const fechaInicio = new Date(this.fechaEmision.value.toString());
+      const fechaFinal = new Date(this.fechaVencimiento.value.toString());
+      console.log('Puro Fecha emision' + this.fechaEmision.value.toString());
+      console.log('Cambio Fecha emision' + fechaInicio.getDate());
+      diffDias = Math.round((fechaFinal.getTime() - fechaInicio.getTime()) / (1000 * 60 * 60 * 24) + 1);
+      tasaEfecPeriodoDescuento = Math.pow((1 + tasaEfecDecimal), (diffDias / this.plazoTasa.value)) - 1;
+      console.log('diffDias: ' + diffDias);
+      console.log('tasaEfecPeriodoDescuento: ' + tasaEfecPeriodoDescuento);
+      console.log('n :' + diffDias  );
+      console.log('plazoTasa :' + this.plazoTasa.value  );
+
+      this.tasaDescuento = tasaEfecPeriodoDescuento / (tasaEfecPeriodoDescuento + 1);
+    } else if (this.tipoTasa.value === 'nominal') {
+      tasaNomDecimal = this.tasaNomi.value / 100;
+      const fechaInicio = new Date(this.fechaEmision.value.toString());
+      const fechaFinal = new Date(this.fechaVencimiento.value.toString());
+      console.log('Puro Fecha emision' + this.fechaEmision.value.toString());
+      console.log('Cambio Fecha emision' + fechaInicio.getDate());
+
+      diffDias = Math.round((fechaFinal.getTime() - fechaInicio.getTime()) / (1000 * 60 * 60 * 24) + 1);
+      const nDias = Math.floor(diffDias / this.periodoCapi.value) ;
+      const mDias = this.plazoTasa.value / this.periodoCapi.value;
+      console.log('dias :' + diffDias );
+      console.log('capitalizacion :' + this.periodoCapi.value  );
+      console.log('n :' + nDias  );
+      console.log('m: ' + mDias);
+      console.log('tasaNomDecimal: ' + tasaNomDecimal);
+      const tep1 = (1 + (tasaNomDecimal / mDias));
+      console.log('TEP1 :' + tep1  );
+      const tep = Math.pow((1 + (tasaNomDecimal / mDias)), nDias) - 1;
+      console.log('TEP :' + tep  );
       this.tasaDescuento = tep / (tep + 1);
     }
+    this.diasTrasl = diffDias;
     this.descuento = this.valorNominal.value * this.tasaDescuento;
     this.valorNeto = this.valorNominal.value - this.descuento;
-    this.valorRecibido = this.valorNeto - this.CIExpresadoEn.value - this.retencion.value;
-    this.valorEntregado = this.valorNominal.value + this.CFExpresadoEn.value - this.retencion.value;
-    this.TCEP = Math.pow((this.valorEntregado/ this.valorRecibido),(this.diasxaño.value/this.diasTrasl))
+    this.valorRecibido = this.valorNeto - parseInt(this.CIExpresadoEn.value) - parseInt(this.retencion.value);
+    this.valorEntregado = parseInt(this.valorNominal.value) + parseInt(this.CFExpresadoEn.value) - parseInt(this.retencion.value);
+    console.log('costos finales: ' + this.CFExpresadoEn.value);
+    this.TCEA = Math.pow((this.valorEntregado / this.valorRecibido), (this.diasxaño.value / this.diasTrasl)) - 1;
+    tcea = Math.pow((this.valorEntregado / this.valorRecibido), (this.diasxaño.value / this.diasTrasl)) - 1;
+    console.log('TCEAAAAAAAAA: ' + tcea);
+    console.log('Ve/Vr: ' + (this.valorEntregado / this.valorRecibido));
+    console.log('Ve: ' + this.valorEntregado );
+    console.log('Vr: '  + this.valorRecibido);
+
+    console.log('dA/dT: ' + (this.diasxaño.value / this.diasTrasl));
   }
 
 }
