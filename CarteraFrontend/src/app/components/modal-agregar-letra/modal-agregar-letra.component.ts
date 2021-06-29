@@ -51,6 +51,41 @@ export class ModalAgregarLetraComponent implements OnInit {
     },
 
   ];
+
+  COSTES: any[] = [
+    {name: 'Portes'},
+    {name: 'Fotocopias'},
+    {name: 'Comisión de estudio'},
+    {name: 'Comisión de desembolso'},
+    {name: 'Comisión de intermediación'},
+    {name: 'Gastos de administración'},
+    {name: 'Gatos notariales'},
+    {name: 'Gatos registrales'},
+    {name: 'Seguro'},
+    {name: 'Otros gastos'}
+  ]
+
+  //Costes
+  CI: any[] = [
+    {
+      motivo: '',
+      vExpre: null,
+    }
+  ]
+
+  CF: any[] = [
+    {
+      motivo: '',
+      vExpre: null,
+    }
+  ]
+
+
+  // Fechas
+  FEmi: Date = new Date();
+  FVenci: Date;
+
+
   USER_ID: number;
   @Output() letraEmitter: any = new EventEmitter();
   TODAY_DATE: Date = new Date();
@@ -98,7 +133,6 @@ export class ModalAgregarLetraComponent implements OnInit {
       tipoTasa: [null, [Validators.required]],
       tasaEfec: [null, [Validators.pattern(floatPattern)]],
       tasaNomi: [null, [Validators.pattern(floatPattern)]],
-      fechaDescuento: [null, [this.dateValidator, Validators.required]],
       periodoCapi: [null]
     });
 
@@ -112,12 +146,13 @@ export class ModalAgregarLetraComponent implements OnInit {
    get tipoTasa()        { return this.newLetra1Form.controls.tipoTasa; }
    get tasaEfec()         { return this.newLetra1Form.controls.tasaEfec; }
    get tasaNomi()    { return this.newLetra1Form.controls.tasaNomi; }
-   get fechaDescuento()         { return this.newLetra1Form.controls.fechaDescuento; }
+   
    get periodoCapi()    { return this.newLetra1Form.controls.periodoCapi; }
 
   /*Getters */
   get fechaEmision()     { return this.newLetra2Form.controls.fechaEmision; }
   get fechaVencimiento() { return this.newLetra2Form.controls.fechaVencimiento; }
+  get fechaDescuento()   { return this.newLetra2Form.controls.fechaDescuento; }
   get valorNominal()     { return this.newLetra2Form.controls.valorNominal; }
   get retencion()        { return this.newLetra2Form.controls.retencion; }
   get CIMotivo()         { return this.newLetra2Form.controls.CIMotivo; }
@@ -132,6 +167,7 @@ export class ModalAgregarLetraComponent implements OnInit {
     const form = this._formBuilder.group({
       fechaEmision: [this.TODAY_DATE, [Validators.required, this.dateValidator]],
       fechaVencimiento: [null, [Validators.required, this.dateValidator]],
+      fechaDescuento: [null, [this.dateValidator, Validators.required]],
       valorNominal: [null, [Validators.required, Validators.pattern(numberPattern)]],
       retencion: [null, [Validators.required, Validators.pattern(numberPattern)]],
       CIMotivo: [null],
@@ -149,6 +185,16 @@ export class ModalAgregarLetraComponent implements OnInit {
       motivo: '',
       expresadoEn: ''
     }));
+  }
+
+  FEmisionChanged(event){
+    this.FEmi = event.value
+    console.log(event)
+  }
+
+  FVenciChanged(event){
+    this.FVenci = event.value
+    console.log(event)
   }
 
   addLetra() {
@@ -231,6 +277,7 @@ export class ModalAgregarLetraComponent implements OnInit {
     let diffDias: number;
     let tcea: number;
     if ( this.tipoTasa.value === 'efectiva') {
+
       tasaEfecDecimal = this.tasaEfec.value / 100;
 
       const fechaInicio = new Date(this.fechaEmision.value.toString());
@@ -280,6 +327,15 @@ export class ModalAgregarLetraComponent implements OnInit {
     console.log('Vr: '  + this.valorRecibido);
 
     console.log('dA/dT: ' + (this.diasxaño.value / this.diasTrasl));
+  }
+
+  addCI(){
+    this.CI.push({motivo: '', vExpre: null})
+    console.log('CIs', this.CI)
+  }
+
+  addCF(){
+    this.CF.push({motivo: '', vExpre: null})
   }
 
 }

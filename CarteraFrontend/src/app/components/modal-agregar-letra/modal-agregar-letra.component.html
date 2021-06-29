@@ -10,7 +10,7 @@
                 
                 <mat-form-field appearance="fill">
                     <mat-label>Nombre</mat-label>
-                    <input matInput placeholder="Ingresa el nombre de la cartera" formControlName="nombre">
+                    <input matInput placeholder="Ingresa el nombre de la letra" formControlName="nombre">
                 </mat-form-field>
 
                  
@@ -61,12 +61,6 @@
                     <mat-error *ngIf="tasaNomi.hasError('pattern')">Ingrese un valor válido</mat-error>
                 </mat-form-field>
 
-                <mat-form-field appearance="fill">
-                    <mat-label>Fecha de Descuento</mat-label>
-                    <input matInput [matDatepicker]="picker" formControlName="fechaDescuento">
-                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                    <mat-datepicker #picker></mat-datepicker>
-                </mat-form-field>
 
                 <mat-form-field appearance="fill" *ngIf="flgTipoTasa">
                     <mat-label>Periodo de Capitalización</mat-label>
@@ -91,16 +85,23 @@
                 
                 <mat-form-field appearance="fill">
                     <mat-label>Fecha de Emision</mat-label>
-                    <input matInput [matDatepicker]="picker1" formControlName="fechaEmision" [min]="TODAY_DATE">
+                    <input matInput [matDatepicker]="picker1" formControlName="fechaEmision" [min]="TODAY_DATE" (dateChange)="FEmisionChanged($event)">
                     <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
                     <mat-datepicker #picker1></mat-datepicker>
                 </mat-form-field>
 
                 <mat-form-field appearance="fill">
                     <mat-label>Fecha de Vencimiento</mat-label>
-                    <input matInput [matDatepicker]="picker2" formControlName="fechaVencimiento" [min]="TODAY_DATE">
+                    <input matInput [matDatepicker]="picker2" formControlName="fechaVencimiento" [min]="TODAY_DATE" (dateChange)="FVenciChanged($event)">
                     <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
                     <mat-datepicker #picker2></mat-datepicker>
+                </mat-form-field>
+
+                <mat-form-field appearance="fill">
+                    <mat-label>Fecha de Descuento</mat-label>
+                <input matInput [matDatepicker]="picker" [disabled]="!fechaVencimiento.value" formControlName="fechaDescuento" [min]="FEmi" [max]="FVenci">
+                    <mat-datepicker-toggle matSuffix [for]="picker" ></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
                 </mat-form-field>
 
                 <mat-form-field appearance="fill">
@@ -120,38 +121,53 @@
                 </mat-form-field>
 
                 <div style="grid-column: 1/3;">
-                    <h2>Costos Iniciales</h2>
+                    <h2>Costos Iniciales 
+                        <button (click)="addCI()" mat-button color=primary >
+                            <span class="material-icons"> add </span>
+                        </button>
+                    </h2>
                 </div>
 
-                <mat-form-field appearance="fill">
-                    <mat-label>Motivo</mat-label>
-                    <input matInput placeholder="Ingresa la retencion" formControlName="CIMotivo">
-                </mat-form-field>
+                <div *ngFor="let item of CI" style="grid-column: 1/3;">
+                    <mat-form-field appearance="fill" style="margin-left: 40px;">
+                        <mat-label>Motivo</mat-label>
+                        <input matInput placeholder="Ingresa la retencion" formControlName="CIMotivo">
+                    </mat-form-field>
+    
+                    <mat-form-field appearance="fill" [floatLabel]="'always'" style="margin-left: 40px;">
+                        <mat-label>Expresado en efectivo</mat-label>
+                        <span matPrefix>S/</span>
+                        <input matInput  formControlName="CIExpresadoEn">
+                        <mat-error *ngIf="CIExpresadoEn.hasError('pattern')">Solo se aceptan valores numéricos</mat-error>
+                        <mat-error *ngIf="CIExpresadoEn.hasError('required')">Campo obligatorio</mat-error>
+                    </mat-form-field>
+                </div>
 
-                <mat-form-field appearance="fill" [floatLabel]="'always'">
-                    <mat-label>Expresado en efectivo</mat-label>
-                    <span matPrefix>S/</span>
-                    <input matInput  formControlName="CIExpresadoEn">
-                    <mat-error *ngIf="CIExpresadoEn.hasError('pattern')">Solo se aceptan valores numéricos</mat-error>
-                    <mat-error *ngIf="CIExpresadoEn.hasError('required')">Campo obligatorio</mat-error>
-                </mat-form-field>
+                
 
                 <div style="grid-column: 1/3;">
-                    <h2>Costos Finales</h2>
+                    <h2>Costos Finales
+                        <button (click)="addCF()" mat-button color=primary >
+                            <span class="material-icons"> add </span>
+                        </button>
+                    </h2>
                 </div>
+                <div *ngFor="let item of CF" style="grid-column: 1/3;">
+                    <mat-form-field appearance="fill" style="margin-left: 40px;">
+                        <mat-label>Motivo</mat-label>
+                        <input matInput placeholder="Ingresa la retencion" formControlName="CFMotivo">
+                    </mat-form-field>
+    
+                    <mat-form-field appearance="fill" [floatLabel]="'always'" style="margin-left: 40px;">
+                        <mat-label>Expresado en efectivo </mat-label>
+                        <input matInput  formControlName="CFExpresadoEn">
+                        <span matPrefix>S/</span>
+                        <mat-error *ngIf="CFExpresadoEn.hasError('pattern')">Solo se aceptan valores numéricos</mat-error>
+                        <mat-error *ngIf="CFExpresadoEn.hasError('required')">Campo obligatorio</mat-error>
+                    </mat-form-field>
 
-                <mat-form-field appearance="fill">
-                    <mat-label>Motivo</mat-label>
-                    <input matInput placeholder="Ingresa la retencion" formControlName="CFMotivo">
-                </mat-form-field>
-
-                <mat-form-field appearance="fill" [floatLabel]="'always'">
-                    <mat-label>Expresado en efectivo </mat-label>
-                    <input matInput  formControlName="CFExpresadoEn">
-                    <span matPrefix>S/</span>
-                    <mat-error *ngIf="CFExpresadoEn.hasError('pattern')">Solo se aceptan valores numéricos</mat-error>
-                    <mat-error *ngIf="CFExpresadoEn.hasError('required')">Campo obligatorio</mat-error>
-                </mat-form-field>
+                </div>
+                
                 
                 <!-- <div formArrayName="cosIniciales" *ngFor="let creds of newLetraForm.controls.cosIniciales?.value; let i = index">
                     <ng-container [formGroupName]="i">
