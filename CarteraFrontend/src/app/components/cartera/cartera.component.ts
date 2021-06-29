@@ -23,7 +23,7 @@ export class CarteraComponent implements OnInit {
   dataSource = new BehaviorSubject<any>([]);
   letrasList: any[];
   displayedColumns: string[] = ['nombre', 'val_nominal', 'f_emision', 'f_vencimiento', 'reten', 'detalles'];
-  constructor(private ruta: ActivatedRoute, private _location: Location, 
+  constructor(private ruta: ActivatedRoute, private _location: Location,
               private generalService: GeneralService,
               private letterService: LetterService,
               public dialog: MatDialog,
@@ -34,8 +34,8 @@ export class CarteraComponent implements OnInit {
    }
 
   ngOnInit() {
-    this.USER_ID = this.metadata.id; 
-
+    this.USER_ID = this.metadata[0].id ;
+    console.log();
     this.letterService.getLettersByIDUser(this.USER_ID).subscribe((res:any)=>{
       console.log('letras x user', res);
       this.letrasList = res.data;
@@ -82,9 +82,9 @@ export class CarteraComponent implements OnInit {
       this.letrasList.push(data);
       this.dataSource.next(this.letrasList);
       this._snackBar.open(`Se agregó la Letra -> ${data.name}`, 'Cerrar', {
-        duration:4000, 
+        duration:4000,
         horizontalPosition: 'start',
-        panelClass: ['my-snack-bar']  
+        panelClass: ['my-snack-bar']
       });
     })
   }

@@ -13,7 +13,7 @@ export class LetterService {
   insertLetterByUser(obj) {
     return this.http.post(`${this.baseLetterURL}`, obj)
   }
-  getLettersByIDUser(idUser){
+  getLettersByIDUser(idUser: number){
     return this.http.get(`${this.baseLetterURL}/user/${idUser}`);
   }
 }
