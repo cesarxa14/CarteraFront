@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { MatTableDataSource} from '@angular/material/table';
-import { Location} from '@angular/common';
+import {DatePipe, Location} from '@angular/common';
 import { GeneralService } from '../../service/general.service';
 import { LetterService } from '../../service/letter.service';
 import { MatDialog } from '@angular/material/dialog';
@@ -27,7 +27,8 @@ export class CarteraComponent implements OnInit {
               private generalService: GeneralService,
               private letterService: LetterService,
               public dialog: MatDialog,
-              private _snackBar: MatSnackBar){
+              private _snackBar: MatSnackBar,
+              public datepipe: DatePipe){
     this.ruta.params.subscribe(params =>{
       this.idCartera = params.id;
     })
@@ -38,9 +39,11 @@ export class CarteraComponent implements OnInit {
     this.letterService.getLettersByIDUser(this.metadata.id).subscribe((res:any)=>{
       console.log('letras x user', res);
       this.letrasList = res.data;
-      this.letrasList.map(row=>{
-        row.date_start = row.date_start.split('T')[0];
-        row.date_end = row.date_end.split('T')[0];
+      this.letrasList.map(row => {
+        row.date_start = this.datepipe.transform(row.date_start, 'yyyy/MM/dd');
+        row.date_end = this.datepipe.transform(row.date_end, 'yyyy/MM/dd');
+        console.log("holaaaaaa");
+        console.log(row);
       })
       this.dataSource.next(this.letrasList);
       this.cartera = res.data;

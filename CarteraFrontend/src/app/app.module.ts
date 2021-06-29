@@ -21,7 +21,7 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { ModalConfirmacionComponent } from './components/modal-confirmacion/modal-confirmacion.component';
 import { ModalEditProfileComponent } from './components/modal-edit-profile/modal-edit-profile.component';
 import { TipoCambioComponent } from './components/tipo-cambio/tipo-cambio.component';
-
+import { DatePipe } from '@angular/common'
 @NgModule({
   declarations: [
     AppComponent,
@@ -50,7 +50,7 @@ import { TipoCambioComponent } from './components/tipo-cambio/tipo-cambio.compon
     MatFormFieldModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [DatePipe],
   entryComponents: [ModalAgregarLetraComponent, ModalAgregarCarteraComponent, ModalEditProfileComponent,
                     ModalConfirmacionComponent],
   bootstrap: [AppComponent]
