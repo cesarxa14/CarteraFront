@@ -6,6 +6,7 @@ import { GeneralService } from '../../service/general.service';
 import { LetterService } from '../../service/letter.service';
 import { MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import { ILetter } from '../../models/letter';
+import {IExpense} from '../../models/expense';
 
 @Component({
   selector: 'app-modal-agregar-letra',
@@ -16,6 +17,7 @@ export class ModalAgregarLetraComponent implements OnInit {
 
   metadata: any = JSON.parse(localStorage.getItem('metadata'));
   newLetter: ILetter;
+  newExpenses: IExpense[];
   PLAZO_TASA: any[] = [
     {
       value: 360,
@@ -68,15 +70,15 @@ export class ModalAgregarLetraComponent implements OnInit {
   //Costes
   CI: any[] = [
     {
-      motivo: '',
-      vExpre: null,
+      motivo: 'alguno',
+      vExpre: 11,
     }
   ]
 
   CF: any[] = [
     {
-      motivo: '',
-      vExpre: null,
+      motivo: 'alguno',
+      vExpre: 11,
     }
   ]
 
@@ -146,7 +148,7 @@ export class ModalAgregarLetraComponent implements OnInit {
    get tipoTasa()        { return this.newLetra1Form.controls.tipoTasa; }
    get tasaEfec()         { return this.newLetra1Form.controls.tasaEfec; }
    get tasaNomi()    { return this.newLetra1Form.controls.tasaNomi; }
-   
+
    get periodoCapi()    { return this.newLetra1Form.controls.periodoCapi; }
 
   /*Getters */
@@ -226,6 +228,7 @@ export class ModalAgregarLetraComponent implements OnInit {
       TCEP: this.TCEA,
       idUser: this.USER_ID
     };
+
     // let obj = {
     //   fechaEmision: this.fechaEmision.value,
     //   fechaVencimiento: this.fechaVencimiento.value,
@@ -242,6 +245,7 @@ export class ModalAgregarLetraComponent implements OnInit {
 
     this.letterService.insertLetterByUser(this.newLetter).subscribe((res: any) => {
       this.letraEmitter.emit(res);
+      this.addExpenses(res.id);
       this.dialogRef.close();
     });
     // this.generalService.insertLetraByIDUser(this.newLetter, this.USER_ID).subscribe(res=>{
@@ -250,7 +254,39 @@ export class ModalAgregarLetraComponent implements OnInit {
     //   // this.dialogRef.close()
     // })
   }
-
+  addExpenses(letterId: number) {
+    let expenses: IExpense[] = [];
+    this.CI.map(row => {
+      const expense = {
+        name: row.motivo,
+        description: row.motivo,
+        value: row.vExpre,
+        condition: 'initial',
+        id_letter: letterId
+      };
+      expenses.push(expense);
+    });
+    this.CF.map(row => {
+      const expense = {
+        name: row.motivo,
+        description: row.motivo,
+        value: row.vExpre,
+        condition: 'final',
+        id_letter: letterId
+      };
+      expenses.push(expense);
+    });
+    //console.log("EXPENSESSSSSSSSS");
+    //console.log(expenses);
+    expenses.map(obj => {
+      console.log(obj);
+      let expenseCreate = this.generalService.createExpense(obj).subscribe((res:any) =>{
+        console.log("EXPENSES CREADOS");
+        console.log(res);
+      });
+      console.log(expenseCreate);
+    });
+  }
   dateValidator(AC: AbstractControl) {
     if (AC && AC.value && !moment(AC.value, 'YYYY-MM-DD', true).isValid()) {
       return {dateVaidator: true};
@@ -330,12 +366,12 @@ export class ModalAgregarLetraComponent implements OnInit {
   }
 
   addCI(){
-    this.CI.push({motivo: '', vExpre: null})
+    this.CI.push({motivo: 'alguno', vExpre: 10})
     console.log('CIs', this.CI)
   }
 
   addCF(){
-    this.CF.push({motivo: '', vExpre: null})
+    this.CF.push({motivo: 'alguno', vExpre: 10})
   }
 
 }

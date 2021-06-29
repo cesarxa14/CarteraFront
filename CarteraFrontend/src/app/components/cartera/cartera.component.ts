@@ -77,7 +77,7 @@ export class CarteraComponent implements OnInit {
     })
 
     dialogRef.componentInstance.letraEmitter.subscribe(data=>{
-      console.log('data emitter', data)
+      console.log('data emitter', data);
       data.date_start = data.date_start.split('T')[0];
       data.date_end = data.date_end.split('T')[0];
       data.date_discount = data.date_discount.split('T')[0];

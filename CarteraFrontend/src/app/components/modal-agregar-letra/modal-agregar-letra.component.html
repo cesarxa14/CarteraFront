@@ -7,13 +7,13 @@
         <div>
             <!-- <button mat-button (click)="agregarCosIniciales()">Costos Iniciales</button> -->
             <form class="formulario" [formGroup]="newLetra1Form">
-                
+
                 <mat-form-field appearance="fill">
                     <mat-label>Nombre</mat-label>
                     <input matInput placeholder="Ingresa el nombre de la letra" formControlName="nombre">
                 </mat-form-field>
 
-                 
+
                 <mat-form-field appearance="fill">
                     <mat-label>Dias por Año</mat-label>
                     <mat-select formControlName="diasxaño">
@@ -24,7 +24,7 @@
                         365
                       </mat-option>
                     </mat-select>
-                </mat-form-field>  
+                </mat-form-field>
 
                 <mat-form-field appearance="fill">
                     <mat-label>Plazo de Tasa</mat-label>
@@ -71,9 +71,9 @@
                 <button (click)="nextStep()" [disabled]="!newLetra1Form.valid" class="button-login" style="grid-column: 2/3;" mat-raised-button color="primary">
                     Siguiente
                 </button>
-        
+
             </form>
-        
+
         </div>
 
     </div>
@@ -82,7 +82,7 @@
         <div>
             <!-- <button mat-button (click)="agregarCosIniciales()">Costos Iniciales</button> -->
             <form class="formulario" [formGroup]="newLetra2Form">
-                
+
                 <mat-form-field appearance="fill">
                     <mat-label>Fecha de Emision</mat-label>
                     <input matInput [matDatepicker]="picker1" formControlName="fechaEmision" [min]="TODAY_DATE" (dateChange)="FEmisionChanged($event)">
@@ -121,7 +121,7 @@
                 </mat-form-field>
 
                 <div style="grid-column: 1/3;">
-                    <h2>Costos Iniciales 
+                    <h2>Costos Iniciales
                         <button (click)="addCI()" mat-button color=primary >
                             <span class="material-icons"> add </span>
                         </button>
@@ -133,7 +133,7 @@
                         <mat-label>Motivo</mat-label>
                         <input matInput placeholder="Ingresa la retencion" formControlName="CIMotivo">
                     </mat-form-field>
-    
+
                     <mat-form-field appearance="fill" [floatLabel]="'always'" style="margin-left: 40px;">
                         <mat-label>Expresado en efectivo</mat-label>
                         <span matPrefix>S/</span>
@@ -143,7 +143,7 @@
                     </mat-form-field>
                 </div>
 
-                
+
 
                 <div style="grid-column: 1/3;">
                     <h2>Costos Finales
@@ -157,7 +157,7 @@
                         <mat-label>Motivo</mat-label>
                         <input matInput placeholder="Ingresa la retencion" formControlName="CFMotivo">
                     </mat-form-field>
-    
+
                     <mat-form-field appearance="fill" [floatLabel]="'always'" style="margin-left: 40px;">
                         <mat-label>Expresado en efectivo </mat-label>
                         <input matInput  formControlName="CFExpresadoEn">
@@ -167,8 +167,8 @@
                     </mat-form-field>
 
                 </div>
-                
-                
+
+
                 <!-- <div formArrayName="cosIniciales" *ngFor="let creds of newLetraForm.controls.cosIniciales?.value; let i = index">
                     <ng-container [formGroupName]="i">
                         <input placeholder="Username" formControlName="motivo">
@@ -181,20 +181,20 @@
                             <mat-label>Expresado En</mat-label>
                             <input matInput placeholder="Ingresa la exp" formControlName="expresadoEn">
                         </mat-form-field>
-                    </ng-container> 
+                    </ng-container>
                 </div> -->
-                
-        
-                
-        
+
+
+
+
                 <button (click)="addLetra()" [disabled]="!newLetra2Form.valid" class="button-login" style="grid-column: 1/3;" mat-raised-button color="primary">
                     AGREGAR
                 </button>
-        
+
             </form>
-        
+
         </div>
 
     </div>
-    
+
 </div>
