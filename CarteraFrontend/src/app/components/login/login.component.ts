@@ -54,7 +54,7 @@ export class LoginComponent implements OnInit {
       }
       else {
         localStorage.setItem('token', res.token);
-        localStorage.setItem('metadata', JSON.stringify(res.metadata));
+        localStorage.setItem('metadata', JSON.stringify(res.metadata[0]));
         this.router.navigateByUrl('/home')
 
       }
