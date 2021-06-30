@@ -418,7 +418,7 @@ export class ModalAgregarLetraComponent implements OnInit {
     });
 
     this.valorRecibido = this.valorNeto - totalExpensesIniciales - parseInt(this.retencion.value);
-    this.valorEntregado = parseInt(this.valorNominal.value) + totalExpensesfinales - parseInt(this.retencion.value);
+    this.valorEntregado = parseInt(this.valorNominal.value) + totalExpensesfinales + parseInt(this.retencion.value);
     console.log('TOTAL costos finales: ' + totalExpensesfinales);
     console.log('TOTAL costos iniciales: ' + totalExpensesIniciales);
     this.TCEA = Math.pow((this.valorEntregado / this.valorRecibido), (this.diasxaño.value / this.diasTrasl)) - 1;
