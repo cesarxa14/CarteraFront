@@ -385,12 +385,7 @@ export class ModalAgregarLetraComponent implements OnInit {
       this.valorEntregado = this.valorNominal.value - this.retencion.value; // aqui falta sumar los costes finales
       this.valorEntregado = parseFloat(this.valorEntregado.toFixed(2));
       this.TCEA = Math.pow((this.valorEntregado/this.valorRecibido),(360/this.diasTrasl)) - 1;
-      // console.log('this.diasTrasl: ' + this.diasTrasl);
-      // console.log('tasaEfecPeriodoDescuento: ' + tasaEfecPeriodoDescuento);
-      // console.log('n :' + this.diasTrasl  );
-      // console.log('plazoTasa :' + this.plazoTasa.value  );
-
-      // this.tasaDescuento = tasaEfecPeriodoDescuento / (tasaEfecPeriodoDescuento + 1);
+ 
     } else if (this.tipoTasa.value === 'nominal') {
       tasaNomDecimal = this.tasaNomi.value / 100;
       const fechaInicio = new Date(this.fechaEmision.value.toString());

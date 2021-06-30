@@ -43,8 +43,8 @@ export class CarteraComponent implements OnInit {
       this.letrasList.map(row => {
         row.date_start = this.datepipe.transform(row.date_start, 'yyyy/MM/dd');
         row.date_end = this.datepipe.transform(row.date_end, 'yyyy/MM/dd');
-        console.log("holaaaaaa");
-        console.log(row);
+        // console.log("holaaaaaa");
+        // console.log(row);
       })
       this.dataSource.next(this.letrasList);
       this.cartera = res.data;
