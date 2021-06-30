@@ -6,6 +6,7 @@ import { GeneralService } from '../../service/general.service';
 import { LetterService } from '../../service/letter.service';
 import { MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import { ILetter } from '../../models/letter';
+import {IExpense} from '../../models/expense';
 
 @Component({
   selector: 'app-modal-agregar-letra',
@@ -65,22 +66,18 @@ export class ModalAgregarLetraComponent implements OnInit {
     {name: 'Otros gastos'}
   ]
 
-  //Costes
-  CI: any[] = [
-    {
-      motivo: '',
-      vExpre: null,
-    }
-  ]
+  data01 = {
+    expensesIniciales: [{
+      name: "name expense",
+      value: 0
+    }],
+    expensesFinales: [{
+      name: "name expense",
+      value: 0
+    }]
+  };
 
-  CF: any[] = [
-    {
-      motivo: '',
-      vExpre: null,
-    }
-  ]
-
-
+  myForm: FormGroup;
   // Fechas
   FEmi: Date = new Date();
   FVenci: Date;
@@ -110,8 +107,69 @@ export class ModalAgregarLetraComponent implements OnInit {
               private generalService: GeneralService,
               private letterService: LetterService,
               @Inject(MAT_DIALOG_DATA) public data: any,
-              private dialogRef: MatDialogRef<ModalAgregarLetraComponent>) { }
+              private dialogRef: MatDialogRef<ModalAgregarLetraComponent>) {
+    this.myForm = this._formBuilder.group({
+      expensesIniciales: this._formBuilder.array([]),
+      expensesFinales: this._formBuilder.array([])
+    });
+    this.setExpensesIniciales();
+    this.setExpensesFinales();
+  }
+  setExpensesIniciales() {
+    let control = this.myForm.controls.expensesIniciales as FormArray;
+    this.data01.expensesIniciales.forEach(x => {
+      control.push(
+        this._formBuilder.group({
+          name: x.name,
+          value: x.value
+        })
+      );
+    });
+  }
+  setExpensesFinales() {
+    let control = this.myForm.controls.expensesFinales as FormArray;
+    this.data01.expensesFinales.forEach(x => {
+      control.push(
+        this._formBuilder.group({
+          name: x.name,
+          value: x.value
+        })
+      );
+    });
+  }
 
+  createExpensesInicialesGroup() {
+    return this._formBuilder.group({
+      name: [''],
+      value: ['']
+    });
+  }
+  createExpensesFinalesGroup() {
+    return this._formBuilder.group({
+      name: [''],
+      value: ['']
+    });
+  }
+  addNewExpensesInicial() {
+    let control = this.myForm.controls.expensesIniciales as FormArray;
+    control.push(this.createExpensesInicialesGroup());
+    console.log(this.myForm.controls);
+  }
+  addNewExpensesFinal() {
+    console.log(this.data01);
+    let control = this.myForm.controls.expensesFinales as FormArray;
+    control.push(this.createExpensesFinalesGroup());
+    console.log(this.data01);
+  }
+
+  deleteExpenseInicial(index) {
+    let control = this.myForm.controls.expensesIniciales as FormArray;
+    control.removeAt(index);
+  }
+  deleteExpenseFinal( index) {
+    let control = this.myForm.controls.expensesFinales as FormArray;
+    control.removeAt(index);
+  }
   ngOnInit() {
     this.USER_ID = this.metadata.id;
     this.newLetra1Form = this._builderForm();
@@ -120,7 +178,8 @@ export class ModalAgregarLetraComponent implements OnInit {
     this.idCartera = parseInt(this.data.idCartera);
   }
 
-
+  get listExpensesInicial() {return this.myForm.controls.expensesIniciales; }
+  get listExpensesFinales() {return this.myForm.controls.expensesFinales; }
 
   _builderForm() {
     const pattern = '^[a-zA-Z0-9._@\-]*$';
@@ -146,7 +205,7 @@ export class ModalAgregarLetraComponent implements OnInit {
    get tipoTasa()        { return this.newLetra1Form.controls.tipoTasa; }
    get tasaEfec()         { return this.newLetra1Form.controls.tasaEfec; }
    get tasaNomi()    { return this.newLetra1Form.controls.tasaNomi; }
-   
+
    get periodoCapi()    { return this.newLetra1Form.controls.periodoCapi; }
 
   /*Getters */
@@ -155,15 +214,13 @@ export class ModalAgregarLetraComponent implements OnInit {
   get fechaDescuento()   { return this.newLetra2Form.controls.fechaDescuento; }
   get valorNominal()     { return this.newLetra2Form.controls.valorNominal; }
   get retencion()        { return this.newLetra2Form.controls.retencion; }
-  get CIMotivo()         { return this.newLetra2Form.controls.CIMotivo; }
-  get CIExpresadoEn()    { return this.newLetra2Form.controls.CIExpresadoEn; }
-  get CFMotivo()         { return this.newLetra2Form.controls.CFMotivo; }
-  get CFExpresadoEn()    { return this.newLetra2Form.controls.CFExpresadoEn; }
+
 
   _builderForm2() {
     const pattern = '^[a-zA-Z0-9._@\-]*$';
     const numberPattern = /^\d{1,10}$/;
 
+    // @ts-ignore
     const form = this._formBuilder.group({
       fechaEmision: [this.TODAY_DATE, [Validators.required, this.dateValidator]],
       fechaVencimiento: [null, [Validators.required, this.dateValidator]],
@@ -174,17 +231,16 @@ export class ModalAgregarLetraComponent implements OnInit {
       CIExpresadoEn: [null, [Validators.pattern(numberPattern)]],
       CFMotivo: [null],
       CFExpresadoEn: [null, [Validators.pattern(numberPattern)]],
-      // cosIniciales: this._formBuilder.array([])
+      cosIniciales: this._formBuilder.array([
+        this._formBuilder.control({
+          CIMotivo: [null],
+          CIExpresadoEn: [null, [Validators.pattern(numberPattern)]],
+        })
+      ]),
+      cosFinales: this._formBuilder.array([])
     });
 
     return form;
-  }
-  agregarCosIniciales() {
-    const creds = this.newLetra2Form.controls.cosIniciales as FormArray;
-    creds.push(this._formBuilder.group({
-      motivo: '',
-      expresadoEn: ''
-    }));
   }
 
   FEmisionChanged(event){
@@ -214,10 +270,6 @@ export class ModalAgregarLetraComponent implements OnInit {
       fechaVencimiento: this.fechaVencimiento.value,
       valorNominal: this.valorNominal.value,
       retencion: this.retencion.value,
-      CIMotivo: this.CIMotivo.value,
-      CIExpresadoEn: this.CIExpresadoEn.value,
-      CFMotivo: this.CFMotivo.value,
-      CFExpresadoEn: this.CFExpresadoEn.value,
       valorEntregado: this.valorEntregado,
       tasaDescuento: this.tasaDescuento,
       descuento: this.descuento,
@@ -226,6 +278,7 @@ export class ModalAgregarLetraComponent implements OnInit {
       TCEP: this.TCEA,
       idUser: this.USER_ID
     };
+
     // let obj = {
     //   fechaEmision: this.fechaEmision.value,
     //   fechaVencimiento: this.fechaVencimiento.value,
@@ -242,6 +295,7 @@ export class ModalAgregarLetraComponent implements OnInit {
 
     this.letterService.insertLetterByUser(this.newLetter).subscribe((res: any) => {
       this.letraEmitter.emit(res);
+      this.addExpenses(res.id);
       this.dialogRef.close();
     });
     // this.generalService.insertLetraByIDUser(this.newLetter, this.USER_ID).subscribe(res=>{
@@ -250,7 +304,40 @@ export class ModalAgregarLetraComponent implements OnInit {
     //   // this.dialogRef.close()
     // })
   }
+  addExpenses(letterId: number) {
+    let expenses: IExpense[] = [];
 
+    this.listExpensesInicial.value.map(row => {
+      const expense = {
+        name: row.name,
+        description: row.name,
+        value: row.value,
+        condition: 'initial',
+        idLetter: letterId
+      };
+      expenses.push(expense);
+    });
+    this.listExpensesFinales.value.map(row => {
+      const expense = {
+        name: row.name,
+        description: row.name,
+        value: row.value,
+        condition: 'final',
+        idLetter: letterId
+      };
+      expenses.push(expense);
+    });
+    console.log("EXPENSESSSSSSSSS");
+    console.log(expenses);
+    expenses.map(obj => {
+      console.log(obj);
+      let expenseCreate = this.generalService.createExpense(obj).subscribe((res:any) =>{
+        console.log("EXPENSES CREADOS");
+        console.log(res);
+      });
+      console.log(expenseCreate);
+    });
+  }
   dateValidator(AC: AbstractControl) {
     if (AC && AC.value && !moment(AC.value, 'YYYY-MM-DD', true).isValid()) {
       return {dateVaidator: true};
@@ -276,10 +363,8 @@ export class ModalAgregarLetraComponent implements OnInit {
     let tasaNomDecimal: number;
     let diffDias: number;
     let tcea: number;
-
-    this.retencion.setValue(parseInt(this.retencion.value));
-    this.valorNominal.setValue(parseInt(this.valorNominal.value));
-
+    let totalExpensesIniciales = 0;
+    let totalExpensesfinales = 0;
     if ( this.tipoTasa.value === 'efectiva') {
 
       tasaEfecDecimal = this.tasaEfec.value / 100;
@@ -327,60 +412,29 @@ export class ModalAgregarLetraComponent implements OnInit {
       console.log('TEP :' + tep  );
       this.tasaDescuento = tep / (tep + 1);
     }
-    // this.diasTrasl = diffDias;
-    // this.descuento = this.valorNominal.value * this.tasaDescuento;
-    // this.valorNeto = this.valorNominal.value - this.descuento;
-    // this.valorRecibido = this.valorNeto - parseInt(this.CIExpresadoEn.value) - parseInt(this.retencion.value);
-    // this.valorEntregado = parseInt(this.valorNominal.value) + parseInt(this.CFExpresadoEn.value) - parseInt(this.retencion.value);
-    // console.log('costos finales: ' + this.CFExpresadoEn.value);
-    // this.TCEA = Math.pow((this.valorEntregado / this.valorRecibido), (this.diasxaño.value / this.diasTrasl)) - 1;
-    // tcea = Math.pow((this.valorEntregado / this.valorRecibido), (this.diasxaño.value / this.diasTrasl)) - 1;
-    // console.log('TCEAAAAAAAAA: ' + tcea);
-    // console.log('Ve/Vr: ' + (this.valorEntregado / this.valorRecibido));
-    // console.log('Ve: ' + this.valorEntregado );
-    // console.log('Vr: '  + this.valorRecibido);
+    this.diasTrasl = diffDias;
+    this.descuento = this.valorNominal.value * this.tasaDescuento;
+    this.valorNeto = this.valorNominal.value - this.descuento;
+    this.listExpensesInicial.value.map(row => {
+      totalExpensesIniciales = totalExpensesIniciales + parseFloat(row.value);
+    });
+    this.listExpensesFinales.value.map(row => {
+      totalExpensesfinales = totalExpensesfinales + parseFloat(row.value);
+    });
 
-    // console.log('dA/dT: ' + (this.diasxaño.value / this.diasTrasl));
+    this.valorRecibido = this.valorNeto - totalExpensesIniciales - parseInt(this.retencion.value);
+    this.valorEntregado = parseInt(this.valorNominal.value) + totalExpensesfinales - parseInt(this.retencion.value);
+    console.log('TOTAL costos finales: ' + totalExpensesfinales);
+    console.log('TOTAL costos iniciales: ' + totalExpensesIniciales);
+    this.TCEA = Math.pow((this.valorEntregado / this.valorRecibido), (this.diasxaño.value / this.diasTrasl)) - 1;
+    tcea = Math.pow((this.valorEntregado / this.valorRecibido), (this.diasxaño.value / this.diasTrasl)) - 1;
+    console.log('TCEAAAAAAAAA: ' + tcea);
+    console.log('Ve/Vr: ' + (this.valorEntregado / this.valorRecibido));
+    console.log('Ve: ' + this.valorEntregado );
+    console.log('Vr: '  + this.valorRecibido);
 
-
-
-    //console values
-    this.newLetter = {
-      nombre: this.nombre.value,
-      diasxaño: this.diasxaño.value,
-      plazoTasa: this.plazoTasa.value,
-      tipoTasa: this.tipoTasa.value,
-      tasaEfect: this.tasaEfec.value,
-      tasaNomi: this.tasaNomi.value,
-      fechaDescuento: this.fechaDescuento.value,
-      periodoCapi: this.periodoCapi.value,
-      fechaEmision: this.fechaVencimiento.value,
-      fechaVencimiento: this.fechaVencimiento.value,
-      valorNominal: this.valorNominal.value,
-      retencion: this.retencion.value,
-      CIMotivo: this.CIMotivo.value,
-      CIExpresadoEn: this.CIExpresadoEn.value,
-      CFMotivo: this.CFMotivo.value,
-      CFExpresadoEn: this.CFExpresadoEn.value,
-      valorEntregado: this.valorEntregado,
-      tasaDescuento: this.tasaDescuento,
-      descuento: this.descuento,
-      valorNeto: this.valorNeto,
-      valorRecibido: this.valorRecibido,
-      TCEP: this.TCEA,
-      idUser: this.USER_ID
-    };
-
-    console.log(this.newLetter)
+    console.log('dA/dT: ' + (this.diasxaño.value / this.diasTrasl));
   }
 
-  addCI(){
-    this.CI.push({motivo: '', vExpre: null})
-    console.log('CIs', this.CI)
-  }
-
-  addCF(){
-    this.CF.push({motivo: '', vExpre: null})
-  }
 
 }

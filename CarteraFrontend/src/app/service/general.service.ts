@@ -10,6 +10,7 @@ export class GeneralService {
   private baseUserURL     = 'http://localhost:3000/users';
   private baseCarterasURL = 'http://localhost:3000/carteras';
   private baseLetraURL    = 'http://localhost:3000/letras';
+  private baseExpenseURL = 'http://localhost:3000/api/expense';
 
   public letrasList = new BehaviorSubject<any>([]);
   constructor(private http: HttpClient) { }
@@ -20,6 +21,9 @@ export class GeneralService {
 
   register(user) {
     return this.http.post(`${this.baseUserURL}`, user);
+  }
+  createExpense(obj) {
+    return this.http.post(this.baseExpenseURL, obj);
   }
 
   getCarterasByUser(idUser){
