@@ -1,0 +1,15 @@
+.grid{
+    margin: 30px;
+    /* border: 2px solid red; */
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    justify-content: center;
+    justify-items: center;
+    row-gap: 20px;
+}
+
+.grid:hover{
+    background-color: rgb(194, 194, 194);
+    color: rgb(85, 119, 85);
+    transition: 1s;
+}

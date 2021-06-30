@@ -1,9 +1,24 @@
 <app-header></app-header>
 <div *ngIf="tipoCambio">
-    <h1>Tipo Cambio</h1>
-    <h2>Compra: {{tipoCambio.compra}}</h2>
-    <h2>Venta: {{tipoCambio.venta}}</h2>
-    <h2>Fuente: {{tipoCambio.origen}}</h2>
-    <h2>Moneda: {{tipoCambio.moneda}}</h2>
-    <h2>Fecha: {{tipoCambio.fecha}}</h2>
+    <mat-card class="grid">
+        <div style="grid-column: 1/3;">
+            <h1>Tipo Cambio</h1>
+        </div>
+        <div>
+            <h2>Compra: {{tipoCambio.compra}}</h2>
+        </div>
+        <div>
+            <h2>Venta: {{tipoCambio.venta}}</h2>
+        </div>
+        <div>
+            <h2>Fuente: {{tipoCambio.origen}}</h2>
+        </div>
+        <div>
+            <h2>Moneda: {{tipoCambio.moneda}}</h2>
+        </div>
+        <div style="grid-column: 1/3;">
+            <h2>Fecha: {{tipoCambio.fecha}}</h2>
+        </div>
+    </mat-card>
+    
 </div>

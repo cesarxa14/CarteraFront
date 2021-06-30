@@ -8,6 +8,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ModalAgregarLetraComponent } from '../modal-agregar-letra/modal-agregar-letra.component';
 import { BehaviorSubject } from 'rxjs';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { ModalResultadoTotalComponent } from '../modal-resultado-total/modal-resultado-total.component';
 @Component({
   selector: 'app-cartera',
   templateUrl: './cartera.component.html',
@@ -15,6 +16,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class CarteraComponent implements OnInit {
 
+  TCEA_TOTAL: number;
+  V_RECIBIDO_TOTAL: number = 0;
   cartera:any;
   metadata:any = JSON.parse(localStorage.getItem('metadata'))
   USER_ID: number;
@@ -22,7 +25,7 @@ export class CarteraComponent implements OnInit {
   // dataSource = new MatTableDataSource();
   dataSource = new BehaviorSubject<any>([]);
   letrasList: any[];
-  displayedColumns: string[] = ['nombre', 'val_nominal', 'f_emision', 'f_vencimiento', 'reten', 'detalles'];
+  displayedColumns: string[] = ['nombre', 'val_nominal','tasa', 'f_descuento', 'f_vencimiento', 'value_neto','value_reci', 'value_entre', 'tcea'];
   constructor(private ruta: ActivatedRoute, private _location: Location,
               private generalService: GeneralService,
               private letterService: LetterService,
@@ -41,13 +44,18 @@ export class CarteraComponent implements OnInit {
       console.log('letras x user', res);
       this.letrasList = res.data;
       this.letrasList.map(row => {
-        row.date_start = this.datepipe.transform(row.date_start, 'yyyy/MM/dd');
+        row.date_discount = this.datepipe.transform(row.date_discount, 'yyyy/MM/dd');
         row.date_end = this.datepipe.transform(row.date_end, 'yyyy/MM/dd');
+        row.rate = parseFloat(parseFloat(row.rate).toFixed(3));
+        row.value_net = parseFloat(parseFloat(row.value_net).toFixed(2));
+        row.value_received = parseFloat(parseFloat(row.value_received).toFixed(2));
+        row.tcea = parseFloat(parseFloat(row.tcea).toFixed(5));
         // console.log("holaaaaaa");
         // console.log(row);
       })
       this.dataSource.next(this.letrasList);
       this.cartera = res.data;
+      this.resultsTotales();
     })
     // this.generalService.getLetrasByIDUser(this.USER_ID).subscribe((res:any)=>{
     //   console.log('res', res)
@@ -59,7 +67,7 @@ export class CarteraComponent implements OnInit {
     //   this.dataSource.next(this.letrasList);
     //   this.cartera = res;
     // })
-
+    
   }
 
   backClicked() {
@@ -90,6 +98,26 @@ export class CarteraComponent implements OnInit {
         panelClass: ['my-snack-bar']
       });
     })
+  }
+
+  abrirModalResulTotales(){
+    
+    const dialogRef = this.dialog.open(ModalResultadoTotalComponent, {
+      width: '500px',
+      height: '300px',
+      data: {value_received_total: this.V_RECIBIDO_TOTAL}
+    })
+  }
+
+  resultsTotales(){
+    let cant_letras = this.dataSource.value.length
+    
+    for(let i=0; i < cant_letras; i++){
+      this.V_RECIBIDO_TOTAL += parseFloat(this.dataSource.value[i].value_received);
+      console.log('valor', parseFloat(this.dataSource.value[i].value_received))
+    }
+    console.log(this.dataSource.value)
+    console.log('v re t', this.V_RECIBIDO_TOTAL)
   }
 
 }

@@ -169,51 +169,69 @@
                 </div>
                 -->
               <div style="grid-column: 1/3;">
-                <h2>Costos Iniciales Real
+                <h2>Costos Iniciales y Finales
                   <button (click)="addExpenseFeature()" mat-button color=primary >
-                    <span class="material-icons"> add </span>
+                    
                   </button>
                 </h2>
               </div>
 
               <form [formGroup]="myForm">
-                <button (click)="addNewExpensesInicial()">Add new expenses Iniciales</button><br><br>
+                <button mat-button (click)="addNewExpensesInicial()">Agregar Costo Inicial <span class="material-icons"> add </span></button><br><br>
                 <div formArrayName="expensesIniciales">
                   <div *ngFor="let comp of myForm.get('expensesIniciales').controls; let i=index">
                     <fieldset>
                       <legend>
-                        <h3>Expense Initials {{i+1}}: </h3>
+                        <h3>Costos Inicial - {{i+1}}</h3>
                       </legend>
-                      <span><button (click)="deleteExpenseInicial(i)">Delete</button></span>
                       <fieldset>
-                        <div [formGroupName]="i">
-                          <label>Expense Name:</label>
+                        <div [formGroupName]="i" class="costes">
+                            <mat-form-field appearance="fill">
+                                <mat-label>Motivo</mat-label>
+                                <input formControlName="name"  matInput>
+                            </mat-form-field>
+
+                            <mat-form-field appearance="fill">
+                                <mat-label>Valor</mat-label>
+                                <input formControlName="value"  matInput>
+                            </mat-form-field>
+                          <!-- <label>Expense Name:</label>
                           <input formControlName="name" />
                           <label>Value:</label>
-                          <input formControlName="value" />
+                          <input formControlName="value" /> -->
                         </div>
                       </fieldset>
+                      <span><button mat-raised-button color="warn" (click)="deleteExpenseInicial(i)">Borrar</button></span>
                     </fieldset>
                   </div>
                 </div><br>
               </form>
               <form [formGroup]="myForm">
-                <button (click)="addNewExpensesFinal()">Add new expenses Finales</button><br><br>
+                <button mat-raised-button (click)="addNewExpensesFinal()">Agregar Costo Final <span class="material-icons"> add </span></button><br><br>
                 <div formArrayName="expensesFinales">
                   <div *ngFor="let comp of myForm.get('expensesFinales').controls; let i=index">
                     <fieldset>
                       <legend>
-                        <h3>Expense Final {{i+1}}: </h3>
+                        <h3>Costo Final - {{i+1}}</h3>
                       </legend>
-                      <span><button (click)="deleteExpenseFinal( i)">Delete</button></span>
                       <fieldset>
-                        <div [formGroupName]="i">
-                          <label>Expense Name:</label>
-                          <input formControlName="name" />
-                          <label>Value:</label>
-                          <input formControlName="value" />
+                        <div [formGroupName]="i" class="costes">
+                            <mat-form-field appearance="fill" >
+                                <mat-label>Motivo</mat-label>
+                                <input formControlName="name"  matInput>
+                            </mat-form-field>
+
+                            <mat-form-field appearance="fill">
+                                <mat-label>Valor</mat-label>
+                                <input formControlName="value"  matInput>
+                            </mat-form-field>
+                          <!-- <label>Expense Name:</label>
+                          <input /> -->
+                          <!-- <label>Value:</label>
+                          <input formControlName="value" /> -->
                         </div>
                       </fieldset>
+                      <span><button mat-raised-button color="warn" (click)="deleteExpenseFinal( i)">Borrar</button></span>
                     </fieldset>
                   </div>
                 </div><br>

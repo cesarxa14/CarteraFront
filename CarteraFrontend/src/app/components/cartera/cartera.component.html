@@ -12,6 +12,7 @@
         </div>
         <div>
             <button (click)="addLetra()" mat-raised-button color="primary"> Agregar Letra</button>
+            <button style="margin-left: 15px;" (click)="abrirModalResulTotales()" mat-raised-button color="warn" > Resultados Totales</button>
         </div>
       </mat-card>
     <div class="contenedor-cards">
@@ -27,10 +28,15 @@
                   <th mat-header-cell *matHeaderCellDef>Valor Nominal</th>
                   <td mat-cell *matCellDef="let element" [matTooltip]="element.titulo"> <p class="ellipsis"> <b >{{element.value_nominal}}</b></p></td>
                 </ng-container>
+
+                <ng-container matColumnDef="tasa">
+                  <th mat-header-cell *matHeaderCellDef>Tasa</th>
+                  <td mat-cell *matCellDef="let element" [matTooltip]="element.titulo"> <p class="ellipsis"> <b >{{(element.rate)*100}}%</b></p></td>
+                </ng-container>
               
-                <ng-container matColumnDef="f_emision">
-                  <th mat-header-cell *matHeaderCellDef>Fecha Emision</th>
-                  <td mat-cell *matCellDef="let element"> <p class="ellipsis"><b> {{element.date_start}}</b> </p>  </td>
+                <ng-container matColumnDef="f_descuento">
+                  <th mat-header-cell *matHeaderCellDef>Fecha Descuento</th>
+                  <td mat-cell *matCellDef="let element"> <p class="ellipsis"><b> {{element.date_discount}}</b> </p>  </td>
                 </ng-container>
               
                 <ng-container matColumnDef="f_vencimiento">
@@ -38,12 +44,33 @@
                   <td mat-cell *matCellDef="let element"> <p> <b> {{element.date_end}}</b> </p>  </td>
                 </ng-container>
         
-                <ng-container matColumnDef="reten">
-                    <th mat-header-cell *matHeaderCellDef> Retencion </th>
+                <ng-container matColumnDef="value_neto">
+                    <th mat-header-cell *matHeaderCellDef>Valor Neto</th>
                     <td mat-cell *matCellDef="let element"> 
-                        <p class="ellipsis"><b>{{element.retention}}</b></p>
+                        <p class="ellipsis"><b>{{element.value_net}}</b></p>
                     </td>
                 </ng-container>
+
+                <ng-container matColumnDef="value_reci">
+                  <th mat-header-cell *matHeaderCellDef>Valor Recibido</th>
+                  <td mat-cell *matCellDef="let element"> 
+                      <p class="ellipsis"><b>{{element.value_received}}</b></p>
+                  </td>
+              </ng-container>
+
+              <ng-container matColumnDef="value_entre">
+                <th mat-header-cell *matHeaderCellDef>Valor Entregado</th>
+                <td mat-cell *matCellDef="let element"> 
+                    <p class="ellipsis"><b>{{element.value_delivered}}</b></p>
+                </td>
+              </ng-container>
+
+              <ng-container matColumnDef="tcea">
+                <th mat-header-cell *matHeaderCellDef>TCEA</th>
+                <td mat-cell *matCellDef="let element"> 
+                    <p class="ellipsis"><b>{{(element.tcea)*100}}%</b></p>
+                </td>
+              </ng-container>
         
                 <ng-container matColumnDef="detalles">
                 <th mat-header-cell *matHeaderCellDef> Detalles </th>

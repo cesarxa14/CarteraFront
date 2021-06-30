@@ -4,3 +4,7 @@
     row-gap: 2em;
     column-gap: 1em;
 }
+
+.costes mat-form-field.mat-form-field {
+    font-size: 12px;
+  }
