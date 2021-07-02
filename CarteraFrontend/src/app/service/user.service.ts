@@ -8,11 +8,16 @@ import { Observable, BehaviorSubject} from 'rxjs';
 export class UserService {
 
   private baseUserURL = 'http://localhost:3000/api/users';
+  private baseAuthURL = 'http://localhost:3000/api/auth';
 
   constructor(private http: HttpClient) { }
 
-  updateUser(userUpdated){
-    return this.http.put(`${this.baseUserURL}`, userUpdated);
+  getUserByID(idUser){
+    return this.http.get(`${this.baseUserURL}/${idUser}`)
+  }
+
+  updateUser(userUpdated, idUser){
+    return this.http.put(`${this.baseAuthURL}/${idUser}`, userUpdated);
   }
 
   deleteUser(idUser){

@@ -9,6 +9,7 @@ import { ModalAgregarLetraComponent } from '../modal-agregar-letra/modal-agregar
 import { BehaviorSubject } from 'rxjs';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ModalResultadoTotalComponent } from '../modal-resultado-total/modal-resultado-total.component';
+import { ModalDetalleLetraComponent } from '../modal-detalle-letra/modal-detalle-letra.component';
 @Component({
   selector: 'app-cartera',
   templateUrl: './cartera.component.html',
@@ -25,7 +26,7 @@ export class CarteraComponent implements OnInit {
   // dataSource = new MatTableDataSource();
   dataSource = new BehaviorSubject<any>([]);
   letrasList: any[];
-  displayedColumns: string[] = ['nombre', 'val_nominal','tasa', 'f_descuento', 'f_vencimiento', 'value_neto','value_reci', 'value_entre', 'tcea'];
+  displayedColumns: string[] = ['nombre', 'val_nominal','tasa','f_descuento', 'value_neto','value_reci', 'value_entre', 'detalles'];
   constructor(private ruta: ActivatedRoute, private _location: Location,
               private generalService: GeneralService,
               private letterService: LetterService,
@@ -43,6 +44,7 @@ export class CarteraComponent implements OnInit {
     this.letterService.getLettersByIDUser(this.USER_ID).subscribe((res:any)=>{
       console.log('letras x user', res);
       this.letrasList = res.data;
+      console.log('len letras', this.letrasList.length)
       this.letrasList.map(row => {
         row.date_discount = this.datepipe.transform(row.date_discount, 'yyyy/MM/dd');
         row.date_end = this.datepipe.transform(row.date_end, 'yyyy/MM/dd');
@@ -75,7 +77,11 @@ export class CarteraComponent implements OnInit {
   }
 
   verDetalles(element) {
-
+    const dialogRef = this.dialog.open(ModalDetalleLetraComponent, {
+      width: '900px',
+      height: '650px',
+      data: element
+    })
   }
 
   addLetra(){
@@ -92,6 +98,7 @@ export class CarteraComponent implements OnInit {
       data.date_discount = data.date_discount.split('T')[0];
       this.letrasList.push(data);
       this.dataSource.next(this.letrasList);
+      this.resultsTotales();
       this._snackBar.open(`Se agregó la Letra -> ${data.name}`, 'Cerrar', {
         duration:4000,
         horizontalPosition: 'start',

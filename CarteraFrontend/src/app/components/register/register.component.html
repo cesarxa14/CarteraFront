@@ -20,6 +20,9 @@
         <mat-form-field appearance="fill">
             <mat-label>Número de documento</mat-label>
             <input matInput [placeholder]="placeholderType" formControlName="numDocument">
+            <mat-error *ngIf="numDocument.hasError('pattern')">Solo valores numéricos</mat-error>
+            <mat-error *ngIf="numDocument.hasError('minlength') && typeDocument.value == 'dni'">Mínimo 8 caracteres para el DNI</mat-error>
+            <mat-error *ngIf="numDocument.hasError('minlength') && typeDocument.value == 'ruc'">Mínimo 11 caracteres para el RUC</mat-error>
         </mat-form-field>
 
         <mat-form-field appearance="fill">

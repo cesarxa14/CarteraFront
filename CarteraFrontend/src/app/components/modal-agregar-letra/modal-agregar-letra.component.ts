@@ -170,6 +170,7 @@ export class ModalAgregarLetraComponent implements OnInit {
     let control = this.myForm.controls.expensesFinales as FormArray;
     control.removeAt(index);
   }
+
   ngOnInit() {
     this.USER_ID = this.metadata.id;
     this.newLetra1Form = this._builderForm();
@@ -266,7 +267,7 @@ export class ModalAgregarLetraComponent implements OnInit {
       tasaNomi: this.tasaNomi.value,
       fechaDescuento: this.fechaDescuento.value,
       periodoCapi: this.periodoCapi.value,
-      fechaEmision: this.fechaVencimiento.value,
+      fechaEmision: this.fechaEmision.value,
       fechaVencimiento: this.fechaVencimiento.value,
       valorNominal: this.valorNominal.value,
       retencion: this.retencion.value,
@@ -280,7 +281,6 @@ export class ModalAgregarLetraComponent implements OnInit {
     };
 
     console.log('nueva letra', this.newLetter);
-
     this.letterService.insertLetterByUser(this.newLetter).subscribe((res: any) => {
       this.letraEmitter.emit(res);
       this.addExpenses(res.id);
@@ -345,6 +345,10 @@ export class ModalAgregarLetraComponent implements OnInit {
     let tcea: number;
     let totalExpensesIniciales = 0;
     let totalExpensesfinales = 0;
+
+    this.valorNominal.setValue(parseFloat(this.valorNominal.value));
+    this.retencion.setValue(parseFloat(this.retencion.value));
+
     if ( this.tipoTasa.value === 'efectiva') {
 
       tasaEfecDecimal = this.tasaEfec.value / 100;
@@ -362,11 +366,12 @@ export class ModalAgregarLetraComponent implements OnInit {
  
     } else if (this.tipoTasa.value === 'nominal') {
       tasaNomDecimal = this.tasaNomi.value / 100;
-      const fechaInicio = new Date(this.fechaEmision.value.toString());
+      // const fechaInicio = new Date(this.fechaEmision.value.toString());
+
       const fechaDescuento = new Date(this.fechaDescuento.value.toString());
       const fechaFinal = new Date(this.fechaVencimiento.value.toString());
-      console.log('Puro Fecha emision' + this.fechaEmision.value.toString());
-      console.log('Cambio Fecha emision' + fechaInicio.getDate());
+      // console.log('Puro Fecha emision' + this.fechaEmision.value.toString());
+      // console.log('Cambio Fecha emision' + fechaInicio.getDate());
 
       this.diasTrasl = Math.round((fechaFinal.getTime() - fechaDescuento.getTime()) / (1000 * 60 * 60 * 24) + 1);
       const nDias = Math.floor(this.diasTrasl / this.periodoCapi.value) ;
@@ -390,13 +395,36 @@ export class ModalAgregarLetraComponent implements OnInit {
     this.listExpensesFinales.value.map(row => {
       totalExpensesfinales = totalExpensesfinales + parseFloat(row.value);
     });
+
+
+    totalExpensesIniciales = totalExpensesIniciales ? totalExpensesIniciales : 0;
+    totalExpensesfinales = totalExpensesfinales ? totalExpensesfinales : 0;
+
+ 
+
     this.valorNeto = this.valorNominal.value - this.descuento;
     this.valorNeto = parseFloat(this.valorNeto.toFixed(2));
+
     this.valorRecibido = this.valorNominal.value - this.retencion.value - this.descuento - totalExpensesIniciales; // aqui falta restar los costes iniciales
     this.valorRecibido = parseFloat(this.valorRecibido.toFixed(2));
+
     this.valorEntregado = this.valorNominal.value - this.retencion.value + totalExpensesfinales; // aqui falta sumar los costes finales
     this.valorEntregado = parseFloat(this.valorEntregado.toFixed(2));
+
     this.TCEA = Math.pow((this.valorEntregado/this.valorRecibido),(360/this.diasTrasl)) - 1;
+    this.TCEA = parseFloat(this.TCEA.toFixed(7));
+    this.TCEA = this.TCEA * 100;
+
+    this.descuento = parseFloat(this.descuento.toFixed(2));
+
+    this.tasaEfec.setValue( this.tasaEfec.value ? parseFloat(this.tasaEfec.value.toFixed(5)):0);
+    this.tasaEfec.setValue(this.tasaEfec.value * 100);
+    
+    this.tasaNomi.setValue( this.tasaNomi.value ? parseFloat(this.tasaNomi.value.toFixed(5)):0);
+    this.tasaNomi.setValue(this.tasaNomi.value * 100);
+
+    this.tasaDescuento = parseFloat(this.tasaDescuento.toFixed(5));
+    this.tasaDescuento = this.tasaDescuento * 100;
  
   }
 

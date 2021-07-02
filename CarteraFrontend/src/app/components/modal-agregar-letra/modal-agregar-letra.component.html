@@ -62,10 +62,19 @@
                 </mat-form-field>
 
 
-                <mat-form-field appearance="fill" *ngIf="flgTipoTasa">
+                <!-- <mat-form-field appearance="fill" *ngIf="flgTipoTasa">
                     <mat-label>Periodo de Capitalización</mat-label>
                     <input matInput placeholder="Ingresa el periodo de Capitalización" formControlName="periodoCapi">
-                </mat-form-field>
+                </mat-form-field> -->
+
+                <mat-form-field appearance="fill">
+                  <mat-label>Periodo de Capitalización</mat-label>
+                  <mat-select formControlName="periodoCapi" >
+                    <mat-option *ngFor="let plazo of PLAZO_TASA" [value]="plazo.value">
+                      {{plazo.nombre}}
+                    </mat-option>
+                  </mat-select>
+              </mat-form-field>
 
                 <div></div>
                 <button (click)="nextStep()" [disabled]="!newLetra1Form.valid" class="button-login" style="grid-column: 2/3;" mat-raised-button color="primary">

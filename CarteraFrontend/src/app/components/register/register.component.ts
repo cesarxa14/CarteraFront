@@ -26,10 +26,11 @@ export class RegisterComponent implements OnInit {
 
   _builderForm(){
     let pattern = '^[a-zA-Z0-9._@\-]*$';
+    let patternNumber = /^[0-9]*$/
     let form = this._formBuilder.group({
       nombres: ['', [Validators.required]],
       typeDocument: [null, [Validators.required]],
-      numDocument: [{value: '', disabled: true}, [Validators.required]],
+      numDocument: [{value: '', disabled: true}, [Validators.required, Validators.pattern(patternNumber)]],
       email: ['', [Validators.required, Validators.email]],
       username: ['', [Validators.required, Validators.pattern(pattern)]],
       password: ['', [Validators.required, Validators.minLength(6)]]
@@ -53,8 +54,10 @@ export class RegisterComponent implements OnInit {
     console.log('event', event)
     if(event.value == 'dni'){
       this.placeholderType = 'Ingrese el nro de DNI';
+      this.registerForm.controls['numDocument'].setValidators(Validators.minLength(8))
     } else{
       this.placeholderType = 'Ingrese el nro de RUC';
+      this.registerForm.controls['numDocument'].setValidators(Validators.minLength(11))
     }
   }
   register(){

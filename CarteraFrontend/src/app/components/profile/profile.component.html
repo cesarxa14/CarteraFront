@@ -2,7 +2,7 @@
     <app-header></app-header>
     <div class="contenedor">
       <mat-progress-bar *ngIf="progress_bar" mode="query"></mat-progress-bar>
-      <mat-card>
+      <mat-card *ngIf="user">
         <button (click)="abrirModalEditar()" class="button-editar" mat-raised-button color="primary"> Editar <span class="material-icons">
           edit
           </span></button>
@@ -13,27 +13,27 @@
         <div class="datos">
           <div>
             <h3>Nombres</h3>
-            <h4>{{metadata.name}}</h4>
+            <h4>{{user.name}}</h4>
           </div>
   
           <div>
             <h3>Email</h3>
-            <h4>{{metadata.email}}</h4>
+            <h4>{{user.email}}</h4>
           </div>
   
           <div>
             <h3>Tipo de Documento</h3>
-            <h4>{{metadata.type_document}}</h4>
+            <h4>{{user.type_document}}</h4>
           </div>
   
           <div>
             <h3>Numero de Documento</h3>
-            <h4>{{metadata.num_document}}</h4>
+            <h4>{{user.num_document}}</h4>
           </div>
   
           <div>
             <h3>Usuario</h3>
-            <h4>{{metadata.c_username}}</h4>
+            <h4>{{user.c_username}}</h4>
           </div>
   
           <div>

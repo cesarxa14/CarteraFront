@@ -26,6 +26,13 @@
 
 }
 
+.noData{
+    text-align: center;
+    border: 2px solid black;
+    margin-left: 40px;
+    margin-right: 40px;
+}
+
 table.mat-table {
     display: table;
     width: 100%;

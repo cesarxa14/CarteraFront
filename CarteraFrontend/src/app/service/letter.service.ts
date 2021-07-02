@@ -16,4 +16,8 @@ export class LetterService {
   getLettersByIDUser(idUser: number){
     return this.http.get(`${this.baseLetterURL}/user/${idUser}`);
   }
+
+  deleteLettersByUser(idUser: number){
+    return this.http.delete(`${this.baseLetterURL}/user/${idUser}`);
+  }
 }

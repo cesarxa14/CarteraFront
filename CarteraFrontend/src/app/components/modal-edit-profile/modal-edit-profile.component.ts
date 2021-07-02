@@ -26,7 +26,7 @@ export class ModalEditProfileComponent implements OnInit {
   _builderForm(){
     let pattern = '^[a-zA-Z0-9._@\-]*$';
     let form = this._formBuilder.group({
-      name: [this.metadata.name, [Validators.required, Validators.pattern(pattern)]],
+      name: [this.metadata.name, [Validators.required]],
       email: [this.metadata.email, [Validators.required, Validators.pattern(pattern)]],
       typeDocument: [this.metadata.type_document, [Validators.required, Validators.pattern(pattern)]],
       numDocument: [this.metadata.num_document, [Validators.required, Validators.pattern(pattern)]],
@@ -45,9 +45,13 @@ export class ModalEditProfileComponent implements OnInit {
   get password() { return this.editForm.controls['password']; }
 
   editProfile(){
+    this.progress_bar = true;
     console.log(this.editForm.value)
 
-    this.userService.updateUser(this.editForm.value).subscribe((res:any) =>{
+    this.userService.updateUser(this.editForm.value, this.metadata.id).subscribe((res:any) =>{
+      this.edit.emit(res);
+      this.progress_bar = false;
+      this.dialogRef.close();
       console.log(res);
     })
   }

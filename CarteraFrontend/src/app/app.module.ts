@@ -22,7 +22,8 @@ import { ModalConfirmacionComponent } from './components/modal-confirmacion/moda
 import { ModalEditProfileComponent } from './components/modal-edit-profile/modal-edit-profile.component';
 import { TipoCambioComponent } from './components/tipo-cambio/tipo-cambio.component';
 import { DatePipe } from '@angular/common';
-import { ModalResultadoTotalComponent } from './components/modal-resultado-total/modal-resultado-total.component'
+import { ModalResultadoTotalComponent } from './components/modal-resultado-total/modal-resultado-total.component';
+import { ModalDetalleLetraComponent } from './components/modal-detalle-letra/modal-detalle-letra.component'
 @NgModule({
   declarations: [
     AppComponent,
@@ -39,7 +40,8 @@ import { ModalResultadoTotalComponent } from './components/modal-resultado-total
     ModalConfirmacionComponent,
     ModalEditProfileComponent,
     TipoCambioComponent,
-    ModalResultadoTotalComponent
+    ModalResultadoTotalComponent,
+    ModalDetalleLetraComponent
   ],
   imports: [
     BrowserModule,
@@ -54,7 +56,7 @@ import { ModalResultadoTotalComponent } from './components/modal-resultado-total
   ],
   providers: [DatePipe],
   entryComponents: [ModalAgregarLetraComponent, ModalAgregarCarteraComponent, ModalEditProfileComponent,
-                    ModalConfirmacionComponent, ModalResultadoTotalComponent],
+                    ModalConfirmacionComponent, ModalResultadoTotalComponent, ModalDetalleLetraComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
