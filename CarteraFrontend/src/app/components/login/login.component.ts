@@ -59,20 +59,7 @@ export class LoginComponent implements OnInit {
 
       }
     })
-    // this.generalService.login(this.username.value, this.password.value).subscribe((res:any)=>{
-    //   if(res.length>0){
-    //     this.router.navigateByUrl('/home')
-    //     localStorage.setItem('metadata', JSON.stringify(res));
-    //   } else{
-    //     this._snackBar.open('Usuario y/o contraseña incorrecta', 'Cerrar', {
-    //       duration:4000, 
-    //       horizontalPosition: 'start',
-    //       panelClass: ['my-snack-bar']  
-    //     });
-        
-    //   }
-    //   console.log(res) 
-    // })
+  
     
   }
 

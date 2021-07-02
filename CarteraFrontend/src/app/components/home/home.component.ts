@@ -15,7 +15,7 @@ export class HomeComponent implements OnInit {
   USER_ID: number;
   carteras: any[];
   metadata:any = JSON.parse(localStorage.getItem('metadata'))
-  items = ['tretr','543543','543','4','fdfd', 'fdfds']
+  // items = ['tretr','543543','543','4','fdfd', 'fdfds']
   constructor(private router: Router,
               private generalService: GeneralService,
               public dialog: MatDialog) { }
