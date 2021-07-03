@@ -374,30 +374,60 @@ export class ModalAgregarLetraComponent implements OnInit {
 
  
     } else if (this.tipoTasa.value === 'nominal') {
-      tasaNomDecimal = this.tasaNomi.value / 100;
-      // const fechaInicio = new Date(this.fechaEmision.value.toString());
+      // tasaNomDecimal = this.tasaNomi.value / 100;
+      // // const fechaInicio = new Date(this.fechaEmision.value.toString());
 
+      // const fechaDescuento = new Date(this.fechaDescuento.value.toString());
+      // const fechaFinal = new Date(this.fechaVencimiento.value.toString());
+      // // console.log('Puro Fecha emision' + this.fechaEmision.value.toString());
+      // // console.log('Cambio Fecha emision' + fechaInicio.getDate());
+
+      // this.diasTrasl = Math.round((fechaFinal.getTime() - fechaDescuento.getTime()) / (1000 * 60 * 60 * 24) + 1);
+      // const nDias = Math.floor(this.diasTrasl / this.periodoCapi.value) ;
+      // const mDias = this.plazoTasa.value / this.periodoCapi.value;
+
+      // console.log('dias :' + this.diasTrasl );
+      // console.log('capitalizacion :' + this.periodoCapi.value);
+      // console.log('n :' + nDias  );
+      // console.log('m: ' + mDias);
+      // console.log('tasaNomDecimal: ' + tasaNomDecimal);
+      // const tep1 = (1 + (tasaNomDecimal / mDias));
+      // console.log('TEP1 :' + tep1  );
+      // const tep = Math.pow((1 + (tasaNomDecimal / mDias)), nDias) - 1;
+      // console.log('TEP :' + tep  );
+
+      // this.tasaDescuento = tep / (tep + 1);
+      // this.descuento = this.valorNominal.value * this.tasaDescuento;
+      tasaNomDecimal = this.tasaNomi.value / 100;
+      const fechaInicio = new Date(this.fechaEmision.value.toString());
       const fechaDescuento = new Date(this.fechaDescuento.value.toString());
       const fechaFinal = new Date(this.fechaVencimiento.value.toString());
-      // console.log('Puro Fecha emision' + this.fechaEmision.value.toString());
-      // console.log('Cambio Fecha emision' + fechaInicio.getDate());
+      console.log('Puro Fecha emision' + this.fechaEmision.value.toString());
+      console.log('Cambio Fecha emision' + fechaInicio.getDate());
 
-      this.diasTrasl = Math.round((fechaFinal.getTime() - fechaDescuento.getTime()) / (1000 * 60 * 60 * 24) + 1);
-      const nDias = Math.floor(this.diasTrasl / this.periodoCapi.value) ;
+      this.diasTrasl = Math.round((fechaFinal.getTime() - fechaDescuento.getTime()) / (1000 * 60 * 60 * 24) + 1) -1;
+      const nDias = this.diasTrasl / this.periodoCapi.value ;
       const mDias = this.plazoTasa.value / this.periodoCapi.value;
-
+      const n0Dias = Math.floor(360 / this.periodoCapi.value) ;
+      const m0Dias = this.plazoTasa.value / this.periodoCapi.value;
       console.log('dias :' + this.diasTrasl );
-      console.log('capitalizacion :' + this.periodoCapi.value);
+      console.log('capitalizacion :' + this.periodoCapi.value  );
       console.log('n :' + nDias  );
       console.log('m: ' + mDias);
+      console.log('n0 :' + n0Dias );
+      console.log('m0: ' + m0Dias);
       console.log('tasaNomDecimal: ' + tasaNomDecimal);
-      const tep1 = (1 + (tasaNomDecimal / mDias));
+      const tep1 = Math.pow((1 + (tasaNomDecimal / m0Dias)), n0Dias) - 1;
       console.log('TEP1 :' + tep1  );
-      const tep = Math.pow((1 + (tasaNomDecimal / mDias)), nDias) - 1;
-      console.log('TEP :' + tep  );
 
-      this.tasaDescuento = tep / (tep + 1);
+      tasaEfecPeriodoDescuento = Math.pow((1 + tep1), (this.diasTrasl / 360)) - 1;
+      console.log('tasaEfecPeriodoDescuento :' + tasaEfecPeriodoDescuento  );
+      const tep = Math.pow((1 + (tasaNomDecimal / mDias)), nDias) - 1;
+      this.tasaEfec.setValue(tep);
+      console.log('TEP :' + tep  );
+      this.tasaDescuento = tasaEfecPeriodoDescuento / (tasaEfecPeriodoDescuento + 1);
       this.descuento = this.valorNominal.value * this.tasaDescuento;
+      console.log("Descuento" + this.tasaDescuento);
     }
 
     this.listExpensesInicial.value.map(row => {

@@ -48,10 +48,11 @@ export class CarteraComponent implements OnInit {
       this.letrasList.map(row => {
         row.date_discount = this.datepipe.transform(row.date_discount, 'yyyy/MM/dd');
         row.date_end = this.datepipe.transform(row.date_end, 'yyyy/MM/dd');
-        row.rate = parseFloat(parseFloat(row.rate).toFixed(3));
+        row.rate = parseFloat(parseFloat(row.rate).toFixed(6));
+        row.rate_discount = parseFloat(parseFloat(row.rate_discount).toFixed(6));
         row.value_net = parseFloat(parseFloat(row.value_net).toFixed(2));
         row.value_received = parseFloat(parseFloat(row.value_received).toFixed(2));
-        row.tcea = parseFloat(parseFloat(row.tcea).toFixed(5));
+        row.tcea = parseFloat(parseFloat(row.tcea).toFixed(6));
         // console.log("holaaaaaa");
         // console.log(row);
       })

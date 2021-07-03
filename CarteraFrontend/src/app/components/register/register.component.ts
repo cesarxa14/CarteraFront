@@ -26,12 +26,14 @@ export class RegisterComponent implements OnInit {
 
   _builderForm(){
     let pattern = '^[a-zA-Z0-9._@\-]*$';
-    let patternNumber = /^[0-9]*$/
+    // let patternLetras = "[A-Za-z]"
+    let patternNumber = /^[0-9]+/
+    let patternEmail = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/
     let form = this._formBuilder.group({
       nombres: ['', [Validators.required]],
       typeDocument: [null, [Validators.required]],
       numDocument: [{value: '', disabled: true}, [Validators.required, Validators.pattern(patternNumber)]],
-      email: ['', [Validators.required, Validators.email]],
+      email: ['', [Validators.required, Validators.pattern(patternEmail)]],
       username: ['', [Validators.required, Validators.pattern(pattern)]],
       password: ['', [Validators.required, Validators.minLength(6)]]
     }) 
@@ -55,9 +57,13 @@ export class RegisterComponent implements OnInit {
     if(event.value == 'dni'){
       this.placeholderType = 'Ingrese el nro de DNI';
       this.registerForm.controls['numDocument'].setValidators(Validators.minLength(8))
+      this.registerForm.controls['numDocument'].setValidators(Validators.maxLength(8))
+
     } else{
       this.placeholderType = 'Ingrese el nro de RUC';
       this.registerForm.controls['numDocument'].setValidators(Validators.minLength(11))
+      this.registerForm.controls['numDocument'].setValidators(Validators.maxLength(11))
+      // this.registerForm.controls['numDocument'].setValidators(Validators.length())
     }
   }
   register(){
