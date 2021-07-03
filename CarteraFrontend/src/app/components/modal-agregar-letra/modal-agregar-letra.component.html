@@ -67,14 +67,14 @@
                     <input matInput placeholder="Ingresa el periodo de Capitalización" formControlName="periodoCapi">
                 </mat-form-field> -->
 
-                <mat-form-field appearance="fill">
+                <mat-form-field appearance="fill" *ngIf="flgTipoTasa">
                   <mat-label>Periodo de Capitalización</mat-label>
                   <mat-select formControlName="periodoCapi" >
                     <mat-option *ngFor="let plazo of PLAZO_TASA" [value]="plazo.value">
                       {{plazo.nombre}}
                     </mat-option>
                   </mat-select>
-              </mat-form-field>
+                </mat-form-field>
 
                 <div></div>
                 <button (click)="nextStep()" [disabled]="!newLetra1Form.valid" class="button-login" style="grid-column: 2/3;" mat-raised-button color="primary">
@@ -188,7 +188,8 @@
               <form [formGroup]="myForm">
                 <button mat-button (click)="addNewExpensesInicial()">Agregar Costo Inicial <span class="material-icons"> add </span></button><br><br>
                 <div formArrayName="expensesIniciales">
-                  <div *ngFor="let comp of myForm.get('expensesIniciales').controls; let i=index">
+                  <!-- <div *ngFor="let comp of getControlExpensesIniciales(); let i=index"> -->
+                  <div *ngFor="let comp of myForm.controls.expensesIniciales['controls']; let i=index">
                     <fieldset>
                       <legend>
                         <h3>Costos Inicial - {{i+1}}</h3>
@@ -218,7 +219,7 @@
               <form [formGroup]="myForm">
                 <button mat-raised-button (click)="addNewExpensesFinal()">Agregar Costo Final <span class="material-icons"> add </span></button><br><br>
                 <div formArrayName="expensesFinales">
-                  <div *ngFor="let comp of myForm.get('expensesFinales').controls; let i=index">
+                  <div *ngFor="let comp of myForm.controls.expensesFinales['controls']; let i=index">
                     <fieldset>
                       <legend>
                         <h3>Costo Final - {{i+1}}</h3>

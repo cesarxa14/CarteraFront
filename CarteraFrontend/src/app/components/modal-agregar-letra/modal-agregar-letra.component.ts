@@ -108,12 +108,7 @@ export class ModalAgregarLetraComponent implements OnInit {
               private letterService: LetterService,
               @Inject(MAT_DIALOG_DATA) public data: any,
               private dialogRef: MatDialogRef<ModalAgregarLetraComponent>) {
-    this.myForm = this._formBuilder.group({
-      expensesIniciales: this._formBuilder.array([]),
-      expensesFinales: this._formBuilder.array([])
-    });
-    this.setExpensesIniciales();
-    this.setExpensesFinales();
+   
   }
   setExpensesIniciales() {
     let control = this.myForm.controls.expensesIniciales as FormArray;
@@ -172,11 +167,25 @@ export class ModalAgregarLetraComponent implements OnInit {
   }
 
   ngOnInit() {
+
+    this.myForm = this._formBuilder.group({
+      expensesIniciales: this._formBuilder.array([]),
+      expensesFinales: this._formBuilder.array([])
+    });
+    this.setExpensesIniciales();
+    this.setExpensesFinales();
+
     this.USER_ID = this.metadata.id;
     this.newLetra1Form = this._builderForm();
     this.diasxaño.setValue('360');
     this.newLetra2Form = this._builderForm2();
     this.idCartera = parseInt(this.data.idCartera);
+
+    // console.log(this.myForm.get('expensesIniciales').value)
+  }
+
+  getControlExpensesIniciales(){
+    return this.myForm.controls['expensesIniciales'].value;
   }
 
   get listExpensesInicial() {return this.myForm.controls.expensesIniciales; }
@@ -376,8 +385,9 @@ export class ModalAgregarLetraComponent implements OnInit {
       this.diasTrasl = Math.round((fechaFinal.getTime() - fechaDescuento.getTime()) / (1000 * 60 * 60 * 24) + 1);
       const nDias = Math.floor(this.diasTrasl / this.periodoCapi.value) ;
       const mDias = this.plazoTasa.value / this.periodoCapi.value;
+
       console.log('dias :' + this.diasTrasl );
-      console.log('capitalizacion :' + this.periodoCapi.value  );
+      console.log('capitalizacion :' + this.periodoCapi.value);
       console.log('n :' + nDias  );
       console.log('m: ' + mDias);
       console.log('tasaNomDecimal: ' + tasaNomDecimal);
@@ -385,6 +395,7 @@ export class ModalAgregarLetraComponent implements OnInit {
       console.log('TEP1 :' + tep1  );
       const tep = Math.pow((1 + (tasaNomDecimal / mDias)), nDias) - 1;
       console.log('TEP :' + tep  );
+
       this.tasaDescuento = tep / (tep + 1);
       this.descuento = this.valorNominal.value * this.tasaDescuento;
     }
@@ -412,20 +423,24 @@ export class ModalAgregarLetraComponent implements OnInit {
     this.valorEntregado = parseFloat(this.valorEntregado.toFixed(2));
 
     this.TCEA = Math.pow((this.valorEntregado/this.valorRecibido),(360/this.diasTrasl)) - 1;
-    this.TCEA = parseFloat(this.TCEA.toFixed(7));
+    // this.TCEA = parseFloat(this.TCEA.toFixed(7));
     this.TCEA = this.TCEA * 100;
 
     this.descuento = parseFloat(this.descuento.toFixed(2));
 
-    this.tasaEfec.setValue( this.tasaEfec.value ? parseFloat(this.tasaEfec.value.toFixed(5)):0);
+    // this.tasaEfec.setValue( this.tasaEfec.value ? parseFloat(this.tasaEfec.value.toFixed(5)):0);
     this.tasaEfec.setValue(this.tasaEfec.value * 100);
-    
-    this.tasaNomi.setValue( this.tasaNomi.value ? parseFloat(this.tasaNomi.value.toFixed(5)):0);
-    this.tasaNomi.setValue(this.tasaNomi.value * 100);
 
-    this.tasaDescuento = parseFloat(this.tasaDescuento.toFixed(5));
+    // this.tasaNomi.setValue( this.tasaNomi.value ? parseFloat(this.tasaNomi.value.toFixed(5)):0);
+    // this.tasaNomi.setValue(this.tasaNomi.value * 100);
+
+    // this.tasaDescuento = parseFloat(this.tasaDescuento.toFixed(5));
     this.tasaDescuento = this.tasaDescuento * 100;
  
+  }
+
+  addExpenseFeature(){
+
   }
 
 
